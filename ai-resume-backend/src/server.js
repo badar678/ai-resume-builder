@@ -18,7 +18,7 @@ const paddleWebhookRoutes = require("./routes/paddleWebhookRoutes");
 connectDB();
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'https://ai-resume-frontend.vercel.app' }))
 
 // Paddle webhooks need the RAW request body to verify their signature,
 // so this is mounted BEFORE express.json() below.
