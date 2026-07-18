@@ -1,0 +1,45 @@
+export const sampleData = {
+  title: 'Sample Resume',
+  personalInfo: {
+    fullName: 'Alex Johnson',
+    email: 'alex@example.com',
+    phone: '+1 (555) 000-0000',
+    location: 'New York, NY',
+    linkedin: 'linkedin.com/in/alexjohnson',
+    website: 'alexjohnson.dev',
+  },
+  summary: 'Experienced software engineer with 5+ years building scalable web applications. Passionate about clean code and great user experiences.',
+  experience: [
+    {
+      jobTitle: 'Senior Software Engineer',
+      company: 'Google',
+      location: 'New York, NY',
+      startDate: '2021-01',
+      endDate: '',
+      current: true,
+      description: '• Led development of core features used by 10M+ users\n• Reduced load time by 40% through performance optimizations',
+    },
+    {
+      jobTitle: 'Software Engineer',
+      company: 'Meta',
+      location: 'San Francisco, CA',
+      startDate: '2019-03',
+      endDate: '2021-01',
+      current: false,
+      description: '• Built and maintained React components for the main feed\n• Collaborated with design team on UI/UX improvements',
+    },
+  ],
+  education: [
+    {
+      degree: 'Bachelor of Science',
+      field: 'Computer Science',
+      school: 'MIT',
+      startDate: '2015-09',
+      endDate: '2019-05',
+      gpa: '3.9',
+    },
+  ],
+  skills: ['JavaScript', 'React', 'Node.js', 'Python', 'AWS', 'Docker'],
+  projects: [],
+  certifications: [],
+}
