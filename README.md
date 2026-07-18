@@ -2,7 +2,7 @@
 
 AI-powered resume builder and ATS optimizer. Build a resume, pick a professional template, get AI-driven suggestions and ATS match scoring against a job description, then export a polished PDF.
 
-Inspired by Resume.io/Enhancv, with a sharper focus on **ATS optimization + AI suggestions + a clean, fast UX**.
+Live: https://ai-resume-builder-eta-lilac.vercel.app/
 
 ## ✨ Features
 
@@ -34,75 +34,6 @@ Inspired by Resume.io/Enhancv, with a sharper focus on **ATS optimization + AI s
 - @paddle/paddle-node-sdk (payments + webhooks)
 - JWT authentication + bcrypt
 
-## 📁 Project Structure
-
-```
-resumeai/
-├── frontend/          # React + Vite app
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── store/      # Zustand stores
-│   │   └── services/    # API client
-│   └── package.json
-├── backend/            # Express API
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── models/
-│   │   ├── services/    # ATS, keyword, PDF, AI services
-│   │   └── server.js
-│   └── package.json
-└── README.md
-```
-
-## 🚀 Getting Started (Local Development)
-
-### Prerequisites
-- Node.js 18+
-- A MongoDB Atlas connection string (or local MongoDB)
-- A Groq API key
-- A Paddle sandbox account (API key, client token, webhook secret, Pro price ID)
-
-### Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env   # then fill in the values below
-npm run dev
-```
-
-Create `backend/.env`:
-```env
-MONGO_URI=your_mongodb_atlas_connection_string
-PORT=5000
-JWT_SECRET=your_jwt_secret
-GROQ_API_KEY=your_groq_api_key
-PADDLE_API_KEY=your_paddle_api_key
-PADDLE_WEBHOOK_SECRET=your_paddle_webhook_secret
-PADDLE_PRO_PRICE_ID=your_paddle_pro_price_id
-PADDLE_ENV=sandbox
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-cp .env.example .env   # then fill in the values below
-npm run dev
-```
-
-Create `frontend/.env`:
-```env
-VITE_API_URL=http://localhost:5000/api
-VITE_PADDLE_ENV=sandbox
-VITE_PADDLE_CLIENT_TOKEN=your_paddle_client_token
-VITE_PADDLE_PRO_PRICE_ID=your_paddle_pro_price_id
-```
-
-The frontend runs on `http://localhost:5173`, the backend on `http://localhost:5000`.
 
 ## ☁️ Deployment
 
@@ -119,9 +50,6 @@ This is a monorepo — deploy each half separately, pointing each platform's **R
 - Framework: Vite (auto-detected) · Build Command: `vite build` · Output Directory: `dist`
 - Add the frontend environment variables above, with `VITE_API_URL` set to your deployed Render backend URL + `/api`
 
-### After deploying
-1. Update the Paddle webhook destination URL to point at your live backend.
-2. (Optional but recommended) Lock down backend CORS to your deployed frontend origin instead of allowing all origins.
 
 ## 💳 Plans
 
@@ -133,6 +61,3 @@ This is a monorepo — deploy each half separately, pointing each platform's **R
 | ATS Check | Limited | Advanced |
 | PDF Downloads | Limited | Unlimited |
 
-## 📄 License
-
-Private project — all rights reserved.
