@@ -56,3 +56,15 @@ app.use("/api", aiRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+
+// Safety net: an unhandled promise rejection anywhere (e.g. a missed
+// `await` on an async call, like the PDF generation bug that crashed the
+// whole server on every request — including unrelated ones — the moment
+// Puppeteer failed) would otherwise take down the entire Node process by
+// default. Log it instead of crashing, so one broken request can't kill
+// service for every other user. This does NOT excuse fixing the root
+// cause — it's a last line of defense, not a substitute for awaiting
+// async calls properly.
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Promise Rejection:", reason);
+});

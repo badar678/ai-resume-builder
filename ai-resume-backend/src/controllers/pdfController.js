@@ -18,7 +18,7 @@ exports.generatePDF = async (req, res) => {
 
     if (!resume) return res.status(404).json({ msg: "Resume not found" });
 
-    generateResumePDF(resume, res);
+    await generateResumePDF(resume, res);
   } catch (err) {
     console.error("PDF generation error:", err.message);
     if (!res.headersSent) {
