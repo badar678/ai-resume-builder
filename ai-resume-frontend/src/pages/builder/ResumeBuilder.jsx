@@ -262,7 +262,7 @@ const handleNext = async () => {
                 }`}
             >
               <span>{step.icon}</span>
-              <span className="hidden sm:inline">{step.label}</span>
+              <span>{step.label}</span>
               {index < currentStep && <span>✓</span>}
             </button>
           ))}
