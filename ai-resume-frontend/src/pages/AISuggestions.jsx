@@ -6,13 +6,6 @@ import api from '../services/api'
 import useSubscriptionStore from '../store/subscriptionStore'
 import toast from 'react-hot-toast'
 
-const TONES = [
-  { id: 'professional', label: '💼 Professional', desc: 'Formal and corporate' },
-  { id: 'confident', label: '🔥 Confident', desc: 'Bold and assertive' },
-  { id: 'concise', label: '⚡ Concise', desc: 'Brief and punchy' },
-  { id: 'quantified', label: '📊 Quantified', desc: 'Data-driven with metrics' },
-]
-
 const SECTIONS = [
   { id: 'experience', label: '💼 Experience' },
   { id: 'projects', label: '📁 Projects' },
@@ -227,38 +220,14 @@ export default function AISuggestions() {
               )}
             </div>
 
-            {/* Tone Selector */}
-            <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-4 space-y-3">
-              <h3 className="text-sm font-semibold text-[#0F172A]">Writing Tone</h3>
-              <div className="space-y-2">
-                {TONES.map((tone) => (
-                  <button
-                    key={tone.id}
-                    onClick={() => setSelectedTone(tone.id)}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl border transition-all cursor-pointer
-                      ${selectedTone === tone.id
-                        ? 'border-[#7C3AED] bg-[#F5F3FF]'
-                        : 'border-[#E2E8F0] hover:border-[#7C3AED]/50'
-                      }`}
-                  >
-                    <p className={`text-sm font-medium ${selectedTone === tone.id ? 'text-[#7C3AED]' : 'text-[#0F172A]'}`}>
-                      {tone.label}
-                    </p>
-                    <p className="text-xs text-[#94A3B8]">{tone.desc}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {/* Tips */}
             <div className="bg-purple-50 border border-purple-100 rounded-[12px] p-4 space-y-2">
               <p className="text-xs font-semibold text-[#7C3AED]">💡 How to use</p>
               <ul className="text-xs text-[#475569] space-y-1">
                 <li>1. Pick Experience or Projects</li>
                 <li>2. Select your resume</li>
-                <li>3. Choose a writing tone</li>
-                <li>4. Click ✨ Improve</li>
-                <li>5. Apply or copy to your resume</li>
+                <li>3. Click ✨ Improve</li>
+                <li>4. Apply or copy to your resume</li>
               </ul>
             </div>
 
@@ -362,14 +331,10 @@ export default function AISuggestions() {
                       {/* AI Improved Result */}
                       {results[key] && (
                         <div className="bg-white rounded-[12px] border-2 border-[#7C3AED] p-4 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <h4 className="text-xs font-semibold text-[#7C3AED] uppercase tracking-wider">
-                              ✨ AI Improved Version
-                            </h4>
-                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full bg-purple-50 text-[#7C3AED]`}>
-                              {TONES.find(t => t.id === selectedTone)?.label}
-                            </span>
-                          </div>
+                          <h4 className="text-xs font-semibold text-[#7C3AED] uppercase tracking-wider">
+                            ✨ AI Improved Version
+                          </h4>
+
 
                           <div className="space-y-2">
                             {results[key].split('\n').filter(b => b.trim()).map((bullet, bi) => (
@@ -502,14 +467,10 @@ export default function AISuggestions() {
                       {/* AI Improved Result */}
                       {results[key] && (
                         <div className="bg-white rounded-[12px] border-2 border-[#7C3AED] p-4 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <h4 className="text-xs font-semibold text-[#7C3AED] uppercase tracking-wider">
-                              ✨ AI Improved Version
-                            </h4>
-                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full bg-purple-50 text-[#7C3AED]`}>
-                              {TONES.find(t => t.id === selectedTone)?.label}
-                            </span>
-                          </div>
+                          <h4 className="text-xs font-semibold text-[#7C3AED] uppercase tracking-wider">
+                            ✨ AI Improved Version
+                          </h4>
+
 
                           <div className="space-y-2">
                             {results[key].split('\n').filter(b => b.trim()).map((bullet, bi) => (
