@@ -139,7 +139,7 @@ export default function PDFPreview() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* Left — ATS Score + Checklist */}
-          <div className="space-y-4">
+          <div className="space-y-4 order-2 lg:order-1">
 
             {/* ATS Score Card */}
             <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-6 text-center space-y-4">
@@ -194,7 +194,7 @@ export default function PDFPreview() {
           </div>
 
           {/* Right — Resume Preview */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-1 lg:order-2">
             <div className="bg-white rounded-[12px] border border-[#E2E8F0] shadow-sm overflow-hidden">
 
               {/* Preview Toolbar */}
