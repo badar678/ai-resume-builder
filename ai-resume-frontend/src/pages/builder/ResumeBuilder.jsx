@@ -15,7 +15,7 @@ import api from '../../services/api'
 import toast from 'react-hot-toast'
 
 const STEPS = [
-  { label: 'Personal Info', icon: '👤', component: PersonalInfo },
+  { label: 'Personal Info', icon: '👤', mobileIcon: '🪪', component: PersonalInfo },
   { label: 'Summary', icon: '📝', component: Summary },
   { label: 'Experience', icon: '💼', component: Experience },
   { label: 'Education', icon: '🎓', component: Education },
@@ -261,7 +261,10 @@ const handleNext = async () => {
                   : 'bg-white text-[#94A3B8] border border-[#E2E8F0]'
                 }`}
             >
-              <span>{step.icon}</span>
+              <span>
+                <span className="sm:hidden">{step.mobileIcon || step.icon}</span>
+                <span className="hidden sm:inline">{step.icon}</span>
+              </span>
               <span>{step.label}</span>
               {index < currentStep && <span>✓</span>}
             </button>
