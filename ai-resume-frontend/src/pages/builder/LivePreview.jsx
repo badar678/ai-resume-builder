@@ -19,7 +19,7 @@ export default function LivePreview() {
         <span className="text-xs font-semibold text-[#475569] uppercase tracking-wider">
           Live Preview
         </span>
-        <span className="text-xs text-[#94A3B8] capitalize">
+        <span className="hidden sm:block text-xs text-[#94A3B8] capitalize">
           {templateId} template • updates as you type
         </span>
       </div>
