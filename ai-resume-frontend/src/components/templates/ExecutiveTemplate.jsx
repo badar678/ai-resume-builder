@@ -1,5 +1,5 @@
 export default function ExecutiveTemplate({ data }) {
-  const { personalInfo: p, summary, experience, education, skills, projects, certifications } = data
+  const { personalInfo: p, summary, experience, education, skills, projects, certifications, extras } = data
   const initials = (p.fullName || 'Y N')
     .split(' ')
     .filter(Boolean)
@@ -148,6 +148,13 @@ export default function ExecutiveTemplate({ data }) {
             </div>
           </div>
         )}
+
+        {extras?.length > 0 && extras.map((x, i) => (
+          <div key={i}>
+            <h2 className="text-[#16A34A] font-bold uppercase tracking-widest text-[12px] mb-1.5">{x.title}</h2>
+            {x.description && <p className="text-[#475569] text-[11px] whitespace-pre-line">{x.description}</p>}
+          </div>
+        ))}
 
       </div>
     </div>

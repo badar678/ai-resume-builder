@@ -1,5 +1,5 @@
 export default function ClassicTemplate({ data }) {
-  const { personalInfo: p, summary, experience, education, skills, projects, certifications } = data
+  const { personalInfo: p, summary, experience, education, skills, projects, certifications, extras } = data
 
   return (
     <div className="font-['Inter'] text-[#0F172A] bg-white w-full h-full px-8 py-6" style={{ fontSize: '11px', lineHeight: '1.6' }}>
@@ -105,6 +105,15 @@ export default function ClassicTemplate({ data }) {
             ))}
           </div>
         )}
+
+        {extras?.length > 0 && extras.map((x, i) => (
+          <div key={i}>
+            <h2 className="text-center font-bold uppercase tracking-widest text-[9px] bg-[#1E293B] text-white py-0.5 mb-1.5">
+              {x.title}
+            </h2>
+            {x.description && <p className="text-[#475569] text-center whitespace-pre-line">{x.description}</p>}
+          </div>
+        ))}
 
       </div>
     </div>

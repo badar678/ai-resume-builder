@@ -17,6 +17,7 @@ const defaultResume = {
   skills: [],
   projects: [],
   certifications: [],
+  extras: [],
 }
 
 // Helper to load resumes from localStorage

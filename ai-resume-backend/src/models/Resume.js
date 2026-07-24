@@ -14,6 +14,7 @@ const resumeSchema = new mongoose.Schema({
   skills: Array,
   projects: Array,
   certifications: Array,
+  extras: Array,
 
   atsScore: Number,
 

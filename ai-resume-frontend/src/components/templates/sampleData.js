@@ -42,4 +42,5 @@ export const sampleData = {
   skills: ['JavaScript', 'React', 'Node.js', 'Python', 'AWS', 'Docker'],
   projects: [],
   certifications: [],
+  extras: [],
 }

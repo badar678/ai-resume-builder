@@ -9,6 +9,7 @@ import Education from './steps/Education'
 import Skills from './steps/Skills'
 import Projects from './steps/Projects'
 import Certifications from './steps/Certifications'
+import Extras from './steps/Extras'
 import LivePreview from './LivePreview'
 import Button from '../../components/ui/Button'
 import api from '../../services/api'
@@ -22,6 +23,7 @@ const STEPS = [
   { label: 'Skills', icon: '⚡', component: Skills },
   { label: 'Projects', icon: '🚀', component: Projects },
   { label: 'Certifications', icon: '🏆', component: Certifications },
+  { label: 'Extras', icon: '➕', component: Extras },
 ]
 
 function UserMenu() {

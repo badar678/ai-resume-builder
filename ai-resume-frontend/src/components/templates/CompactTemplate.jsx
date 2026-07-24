@@ -1,5 +1,5 @@
 export default function CompactTemplate({ data }) {
-  const { personalInfo: p, summary, experience, education, skills, projects, certifications } = data
+  const { personalInfo: p, summary, experience, education, skills, projects, certifications, extras } = data
 
   return (
     <div className="font-['Inter'] text-[#0F172A] bg-white w-full h-full flex" style={{ fontSize: '10px', lineHeight: '1.5' }}>
@@ -106,6 +106,15 @@ export default function CompactTemplate({ data }) {
             ))}
           </div>
         )}
+
+        {extras?.length > 0 && extras.map((x, i) => (
+          <div key={i}>
+            <h2 className="text-[#0891B2] font-bold uppercase tracking-widest text-[8px] border-b border-[#E2E8F0] pb-0.5 mb-1">
+              {x.title}
+            </h2>
+            {x.description && <p className="text-[#475569] whitespace-pre-line">{x.description}</p>}
+          </div>
+        ))}
 
       </div>
     </div>
