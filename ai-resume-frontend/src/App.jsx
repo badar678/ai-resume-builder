@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard'
 import ResumeBuilder from './pages/builder/ResumeBuilder'
 import TemplateSelection from './pages/TemplateSelection'
 import PDFPreview from './pages/PDFPreview'
+import PrintResume from './pages/PrintResume'
 import NotFound from './pages/NotFound'
 import ResetPassword from './pages/auth/ResetPassword'
 import ATSAnalyzer from './pages/ATSAnalyzer'
@@ -49,6 +50,12 @@ export default function App() {
           <GuestRoute><EmailVerification /></GuestRoute>
         } />
 
+        {/* Print Route — used only by the backend's headless Puppeteer
+            browser to render the PDF. Auth is via a short-lived print
+            token in the URL (see PrintResume.jsx), not a login session,
+            so this is intentionally NOT wrapped in ProtectedRoute. */}
+        <Route path="/print/:resumeId" element={<PrintResume />} />
+
         {/* Protected Routes (logged in users only) */}
         <Route path="/dashboard" element={
           <ProtectedRoute><Dashboard /></ProtectedRoute>
@@ -63,20 +70,20 @@ export default function App() {
           <ProtectedRoute><PDFPreview /></ProtectedRoute>
         } />
         <Route path="/ats-analyzer" element={
-  <ProtectedRoute><ATSAnalyzer /></ProtectedRoute>
-} />
-<Route path="/ai-suggestions" element={
-  <ProtectedRoute><AISuggestions /></ProtectedRoute>
-} />
-<Route path="/pricing" element={
-  <ProtectedRoute><PricingPage /></ProtectedRoute>
-} />
-<Route path="/payment-success" element={
-  <ProtectedRoute><PaymentSuccessPage /></ProtectedRoute>
-} />
-<Route path="/admin" element={
-  <AdminRoute><AdminPanel /></AdminRoute>
-} />
+          <ProtectedRoute><ATSAnalyzer /></ProtectedRoute>
+        } />
+        <Route path="/ai-suggestions" element={
+          <ProtectedRoute><AISuggestions /></ProtectedRoute>
+        } />
+        <Route path="/pricing" element={
+          <ProtectedRoute><PricingPage /></ProtectedRoute>
+        } />
+        <Route path="/payment-success" element={
+          <ProtectedRoute><PaymentSuccessPage /></ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <AdminRoute><AdminPanel /></AdminRoute>
+        } />
 
         {/* 404 */}
         <Route path="*" element={<NotFound />} />
