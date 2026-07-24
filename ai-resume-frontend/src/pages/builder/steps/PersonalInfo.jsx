@@ -6,7 +6,10 @@ export default function PersonalInfo() {
   const personalInfo = useResumeStore((s) => s.resumeData.personalInfo)
   const updatePersonalInfo = useResumeStore((s) => s.updatePersonalInfo)
 
-  const { register, watch } = useForm({ defaultValues: personalInfo })
+  const { register, watch, formState: { errors } } = useForm({
+    defaultValues: personalInfo,
+    mode: 'onBlur',
+  })
   const watched = watch()
 
   useEffect(() => {
@@ -27,6 +30,16 @@ export default function PersonalInfo() {
     { name: 'website', label: 'Website / Portfolio', placeholder: 'johndoe.com', type: 'text' },
   ]
 
+  const getValidationRules = (field) => {
+    if (!field.required) return {}
+    return field.type === 'email'
+      ? {
+          required: 'Email is required',
+          pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email address' },
+        }
+      : { required: `${field.label} is required` }
+  }
+
   return (
     <div className="space-y-5">
       <div>
@@ -44,11 +57,15 @@ export default function PersonalInfo() {
             <input
               type={field.type}
               placeholder={field.placeholder}
-              {...register(field.name)}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#E2E8F0] text-sm
+              {...register(field.name, getValidationRules(field))}
+              className={`w-full px-4 py-2.5 rounded-xl border text-sm
                 text-[#0F172A] placeholder-[#94A3B8] outline-none transition-all
-                focus:ring-2 focus:ring-[#2563EB] focus:border-transparent bg-white"
+                focus:ring-2 focus:ring-[#2563EB] focus:border-transparent bg-white
+                ${errors[field.name] ? 'border-[#EF4444]' : 'border-[#E2E8F0]'}`}
             />
+            {errors[field.name] && (
+              <p className="text-xs text-[#EF4444] mt-1">{errors[field.name].message}</p>
+            )}
           </div>
         ))}
       </div>

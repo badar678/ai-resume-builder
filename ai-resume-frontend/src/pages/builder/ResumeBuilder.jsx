@@ -105,6 +105,16 @@ export default function ResumeBuilder() {
   const [previewOpen, setPreviewOpen] = useState(false)
   const StepComponent = STEPS[currentStep].component
 
+  // Required before leaving Step 1 (Personal Info) — mirrors the
+  // validation rules in PersonalInfo.jsx. Reads straight from the store,
+  // which stays in sync with the form on every keystroke, so no refs or
+  // lifted form state are needed.
+  const isPersonalInfoValid = () => {
+    const { fullName, email } = resumeData.personalInfo
+    const emailValid = /^\S+@\S+\.\S+$/.test(email || '')
+    return !!fullName?.trim() && emailValid
+  }
+
   // Load correct resume when entering builder
   useEffect(() => {
     if (resumeId === 'new') {
@@ -140,6 +150,11 @@ export default function ResumeBuilder() {
 
   // In handleNext — replace the finally block toast:
 const handleNext = async () => {
+  if (currentStep === 0 && !isPersonalInfoValid()) {
+    toast.error('Please add your name and a valid email before continuing.')
+    return
+  }
+
   if (currentStep < STEPS.length - 1) {
     setCurrentStep(currentStep + 1)
     return
@@ -251,7 +266,13 @@ const handleNext = async () => {
           {STEPS.map((step, index) => (
             <button
               key={index}
-              onClick={() => setCurrentStep(index)}
+              onClick={() => {
+                if (index > 0 && !isPersonalInfoValid()) {
+                  toast.error('Please add your name and a valid email before continuing.')
+                  return
+                }
+                setCurrentStep(index)
+              }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs
                 font-medium whitespace-nowrap transition-all cursor-pointer shrink-0
                 ${index === currentStep
