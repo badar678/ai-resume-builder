@@ -14,8 +14,27 @@ exports.register = async (req, res) => {
     const exists = await User.findOne({ email });
     if (exists) return res.status(400).json({ msg: "Email already exists" });
 
+    // Free-tier abuse guard: cap how many accounts can be created from the
+    // same IP. This is NOT foolproof — a VPN or different network defeats
+    // it — but it stops the common case of someone just re-registering
+    // from the same browser/device to get another free resume slot.
+    // req.ip requires app.set("trust proxy", 1) in server.js to reflect
+    // the real client IP on Render (otherwise every request looks like
+    // it's from Render's internal proxy).
+    const ip = req.headers["x-forwarded-for"]?.split(",")[0].trim() || req.ip;
+    const MAX_ACCOUNTS_PER_IP = 3;
+
+    if (ip) {
+      const accountsFromIp = await User.countDocuments({ registrationIp: ip });
+      if (accountsFromIp >= MAX_ACCOUNTS_PER_IP) {
+        return res.status(403).json({
+          msg: "You've reached the maximum number of free accounts allowed from this device/network.",
+        });
+      }
+    }
+
     const hash = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hash });
+    await User.create({ name, email, password: hash, registrationIp: ip || null });
 
     res.json({ msg: "Registered successfully" });
   } catch (err) {

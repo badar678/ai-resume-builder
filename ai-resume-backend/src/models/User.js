@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   subscriptionStatus: { type: String, default: "free" },
   subscriptionPlan: { type: String, default: "free" },
   paddleCustomerId: { type: String, default: null },
+  registrationIp: { type: String, default: null },
   resetToken: { type: String, default: null },
   resetTokenExpiry: { type: Date, default: null },
   createdAt: { type: Date, default: Date.now }

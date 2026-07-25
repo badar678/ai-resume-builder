@@ -18,6 +18,13 @@ const paddleWebhookRoutes = require("./routes/paddleWebhookRoutes");
 connectDB();
 const app = express();
 
+// Render sits behind a reverse proxy/load balancer. Without this, req.ip
+// would always resolve to the proxy's internal IP (the same for every
+// request), which would make any IP-based logic (e.g. the free-account
+// limit in authController.js) useless — every signup would look like it
+// came from the same place.
+app.set("trust proxy", 1);
+
 // Allowed frontend origins. FRONTEND_URL is set in Render's environment
 // variables (e.g. https://ai-resume-builder-eta-lilac.vercel.app) — this
 // avoids hardcoding a deployed URL into the source, which is what caused
