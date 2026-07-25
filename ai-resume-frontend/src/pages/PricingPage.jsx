@@ -33,9 +33,11 @@ export default function PricingPage() {
   const navigate = useNavigate()
   const [showUpgrade, setShowUpgrade] = useState(false)
   const [showDowngrade, setShowDowngrade] = useState(false)
+  const [showResumeConfirm, setShowResumeConfirm] = useState(false)
   const [downgrading, setDowngrading] = useState(false)
+  const [resuming, setResuming] = useState(false)
 
-  const { subscription, fetchSubscription, cancelSubscription } = useSubscriptionStore()
+  const { subscription, fetchSubscription, cancelSubscription, resumeSubscription } = useSubscriptionStore()
 
   useEffect(() => {
     fetchSubscription()
@@ -52,6 +54,13 @@ export default function PricingPage() {
     await cancelSubscription()
     setDowngrading(false)
     setShowDowngrade(false)
+  }
+
+  const handleResume = async () => {
+    setResuming(true)
+    await resumeSubscription()
+    setResuming(false)
+    setShowResumeConfirm(false)
   }
 
   return (
@@ -104,12 +113,13 @@ export default function PricingPage() {
                   disabled={isCurrent && !isProCancelling}
                   className="w-full mt-8"
                   onClick={() => {
-                    if (plan.id === 'pro') setShowUpgrade(true)
-                    else if (!isProCancelling) setShowDowngrade(true)
+                    if (isProCancelling) setShowResumeConfirm(true)
+                    else if (plan.id === 'pro') setShowUpgrade(true)
+                    else setShowDowngrade(true)
                   }}
                 >
                   {isProCancelling
-                    ? `Cancels ${expiryDate || 'at period end'}`
+                    ? 'Renew Subscription'
                     : isCurrent
                       ? 'Current Plan'
                       : plan.id === 'pro' ? 'Upgrade to Pro' : 'Switch to Free'}
@@ -147,6 +157,16 @@ export default function PricingPage() {
         message={`Your card won't be charged again. You'll keep unlimited resumes, AI suggestions, and premium templates until${expiryDate ? ` ${expiryDate}` : ' the end of your current billing period'} — then your account moves to the Free plan.`}
         confirmText="Cancel Subscription"
         loading={downgrading}
+      />
+
+      <ConfirmModal
+        isOpen={showResumeConfirm}
+        onClose={() => setShowResumeConfirm(false)}
+        onConfirm={handleResume}
+        title="Renew your Pro subscription?"
+        message={`Your card will be charged again as normal on${expiryDate ? ` ${expiryDate}` : ' your next billing date'}, and Pro access will continue uninterrupted.`}
+        confirmText="Renew Subscription"
+        loading={resuming}
       />
     </AppLayout>
   )

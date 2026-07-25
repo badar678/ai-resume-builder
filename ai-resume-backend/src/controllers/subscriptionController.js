@@ -131,3 +131,53 @@ exports.cancelSubscription = async (req, res) => {
     res.status(500).json({ msg: "Failed to cancel subscription" });
   }
 };
+
+// POST /api/subscription/resume
+exports.resumeSubscription = async (req, res) => {
+  try {
+    const sub = await Subscription.findOne({
+      userId: req.user.id,
+      status: "active",
+    }).sort({ startDate: -1 });
+
+    if (!sub || sub.plan === "free") {
+      return res.status(400).json({ msg: "No active paid subscription found" });
+    }
+
+    if (!sub.cancelAtPeriodEnd) {
+      return res.status(400).json({ msg: "Subscription isn't scheduled to cancel" });
+    }
+
+    // Undoing a scheduled cancellation is different from "reinstating a
+    // canceled subscription" — Paddle genuinely can't do the latter once
+    // status has actually flipped to canceled. But while status is still
+    // "active" with a pending scheduled_change (which is exactly this
+    // state — cancelAtPeriodEnd true, status still active), Paddle lets
+    // you clear that scheduled change via the update-subscription
+    // endpoint, and billing just continues as normal.
+    if (sub.paddleSubscriptionId) {
+      await paddle.subscriptions.update(sub.paddleSubscriptionId, {
+        scheduledChange: null,
+      });
+    } else {
+      console.warn(
+        `Resuming subscription ${sub._id} with no paddleSubscriptionId — nothing to update on Paddle's side.`
+      );
+    }
+
+    sub.cancelAtPeriodEnd = false;
+    await sub.save();
+
+    res.json({ msg: "Your subscription will renew as normal.", expiryDate: sub.expiryDate });
+  } catch (err) {
+    console.error("Failed to resume subscription with Paddle:", err);
+
+    if (err.code === "forbidden") {
+      return res.status(500).json({
+        msg: "Paddle rejected this request. The API key needs the 'Subscriptions (Write)' permission — check Developer Tools → Authentication in the Paddle dashboard.",
+      });
+    }
+
+    res.status(500).json({ msg: "Failed to resume subscription" });
+  }
+};

@@ -57,6 +57,20 @@ const useSubscriptionStore = create((set, get) => ({
     }
   },
 
+  resumeSubscription: async () => {
+    set({ isLoading: true })
+    try {
+      const res = await api.post('/subscription/resume')
+      await get().fetchSubscription()
+      toast.success(res.data?.msg || 'Your subscription will renew as normal.')
+      return true
+    } catch (err) {
+      set({ isLoading: false })
+      toast.error(err.response?.data?.msg || 'Failed to resume subscription.')
+      return false
+    }
+  },
+
   isPro: () => get().subscription?.plan === 'pro',
 }))
 
