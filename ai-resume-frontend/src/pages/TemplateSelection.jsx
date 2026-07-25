@@ -5,7 +5,6 @@ import Modal from '../components/ui/Modal'
 import Button from '../components/ui/Button'
 import useResumeStore from '../store/resumeStore'
 import useSubscriptionStore from '../store/subscriptionStore'
-import UpgradeModal from '../components/subscription/UpgradeModal'
 import { getTemplate } from '../components/templates'
 import { sampleData } from '../components/templates/sampleData'
 
@@ -154,8 +153,6 @@ const resumeData = useResumeStore((s) => s.resumeData)
   const [previewTemplate, setPreviewTemplate] = useState(null)
   const [previewWithMyData, setPreviewWithMyData] = useState(false)
   const [activeFilter, setActiveFilter] = useState('All')
-  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false)
-  const [pendingTemplate, setPendingTemplate] = useState(null)
 
   const { subscription, fetchSubscription } = useSubscriptionStore()
   const isPro = subscription?.plan === 'pro'
@@ -173,19 +170,12 @@ const resumeData = useResumeStore((s) => s.resumeData)
     updateSection('templateId', template.id)
   }
 
-  const handleLockedClick = (template) => {
+  // "Upgrade to Use" now sends the user straight to the Pricing page
+  // instead of opening the in-page UpgradeModal, so they see the full
+  // plan comparison before paying rather than a bare checkout popup.
+  const handleLockedClick = () => {
     setPreviewTemplate(null)
-    setPendingTemplate(template)
-    setUpgradeModalOpen(true)
-  }
-
-  const handleUpgradeSuccess = async () => {
-    await fetchSubscription()
-    setUpgradeModalOpen(false)
-    if (pendingTemplate) {
-      handleUseTemplate(pendingTemplate)
-      setPendingTemplate(null)
-    }
+    navigate('/pricing')
   }
 
   const handleUseTemplate = (template) => {
@@ -376,12 +366,6 @@ const resumeData = useResumeStore((s) => s.resumeData)
         )}
       </Modal>
 
-      {/* Upgrade Modal — shown when a Free user tries to use a Pro template */}
-      <UpgradeModal
-        isOpen={upgradeModalOpen}
-        onClose={() => { setUpgradeModalOpen(false); setPendingTemplate(null) }}
-        onSuccess={handleUpgradeSuccess}
-      />
     </AppLayout>
   )
 }
