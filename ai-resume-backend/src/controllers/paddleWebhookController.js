@@ -111,6 +111,10 @@ async function syncSubscription(data) {
   const isActive = data.status === "active" || data.status === "trialing";
 
   sub.status = isActive ? "active" : "cancelled";
+  // Keep this in sync even if the cancellation was scheduled from Paddle's
+  // side (customer portal or the cancel link in Paddle's emails) rather
+  // than through our own /subscription/cancel endpoint.
+  sub.cancelAtPeriodEnd = data.scheduledChange?.action === "cancel";
   if (data.currentBillingPeriod?.endsAt) {
     sub.expiryDate = new Date(data.currentBillingPeriod.endsAt);
   }
@@ -127,6 +131,7 @@ async function cancelSubscription(data) {
   if (!sub) return;
 
   sub.status = "cancelled";
+  sub.cancelAtPeriodEnd = false; // no longer "pending" — it has actually happened now
   await sub.save();
 
   await User.findByIdAndUpdate(sub.userId, {

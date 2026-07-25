@@ -39,13 +39,16 @@ const useSubscriptionStore = create((set, get) => ({
   cancelSubscription: async () => {
     set({ isLoading: true })
     try {
-      await api.post('/subscription/cancel')
-      set({ subscription: { plan: 'free', status: 'active', expiryDate: null }, isLoading: false })
+      const res = await api.post('/subscription/cancel')
 
-      const { user, setUser } = useAuthStore.getState()
-      if (user) setUser({ ...user, subscriptionPlan: 'free', subscriptionStatus: 'free' })
+      // Don't optimistically set plan to 'free' here — cancelling no
+      // longer means an instant downgrade. The user keeps Pro access
+      // until their current billing period ends (Paddle just won't
+      // renew it), so re-fetch the real state from the server instead
+      // of assuming what it now looks like.
+      await get().fetchSubscription()
 
-      toast.success('Subscription cancelled.')
+      toast.success(res.data?.msg || 'Your subscription will not renew.')
       return true
     } catch (err) {
       set({ isLoading: false })
