@@ -161,6 +161,12 @@ export default function ATSAnalyzer() {
               Applicant Tracking Systems scan resumes for keywords from the job description.
               A score above 70% means your resume will likely pass the ATS filter and reach a human recruiter.
             </p>
+            {/* <p className="text-xs text-[#475569] mt-1.5">
+              <span className="font-medium text-[#0F172A]">How your score is calculated:</span>{' '}
+              each matched keyword is weighted by where it's found — Skills 100%, Experience 75%,
+              Summary 50%, Education 25% — then averaged across all job keywords. So a keyword just
+              mentioned in passing scores lower than one explicitly listed in your Skills section.
+            </p> */}
           </div>
         </div>
 
