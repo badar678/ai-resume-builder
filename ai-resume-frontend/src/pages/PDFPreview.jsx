@@ -53,7 +53,15 @@ export default function PDFPreview() {
     fetchSubscription()
   }, [])
 
-  // Mock ATS score based on filled sections
+  // Prefer the REAL ATS score — persisted to resume.atsScore whenever the
+  // user runs an actual keyword-match scan against a job description on
+  // the ATS Analyzer page (see atsController.js). Previously this page
+  // ignored that entirely and always showed a fake "how many sections are
+  // filled in" percentage under the same "ATS Score" label — misleading,
+  // since it had nothing to do with keyword matching and could show a
+  // completely different number than the real analyzer for the same resume.
+  const hasRealScore = typeof resumeData.atsScore === 'number'
+
   const filledSections = [
     personalInfo.fullName,
     summary,
@@ -61,7 +69,9 @@ export default function PDFPreview() {
     education.length > 0,
     skills.length > 0,
   ].filter(Boolean).length
-  const atsScore = Math.min(Math.round((filledSections / 5) * 100), 95)
+  const completenessScore = Math.min(Math.round((filledSections / 5) * 100), 95)
+
+  const atsScore = hasRealScore ? resumeData.atsScore : completenessScore
 
   const handleDownload = async () => {
   if (!isPro && allResumes.length > 1) {
@@ -143,15 +153,30 @@ export default function PDFPreview() {
 
             {/* ATS Score Card */}
             <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-6 text-center space-y-4">
-              <h3 className="font-semibold text-[#0F172A]">ATS Score</h3>
+              <h3 className="font-semibold text-[#0F172A]">
+                {hasRealScore ? 'ATS Score' : 'Profile Completeness'}
+              </h3>
               <ScoreRing score={atsScore} />
-              <p className="text-xs text-[#475569]">
-                {atsScore >= 70
-                  ? '🎉 Your resume is well-optimized for ATS systems!'
-                  : atsScore >= 40
-                  ? '⚠️ Fill in more sections to improve your score.'
-                  : '❌ Complete more sections to pass ATS filters.'}
-              </p>
+              {hasRealScore ? (
+                <p className="text-xs text-[#475569]">
+                  {atsScore >= 70
+                    ? '🎉 Strong keyword match against the job description you analyzed.'
+                    : atsScore >= 40
+                    ? '⚠️ Fair match — add more of the missing keywords to your Skills section.'
+                    : '❌ Weak match — run the ATS Analyzer for specific keyword suggestions.'}
+                </p>
+              ) : (
+                <p className="text-xs text-[#475569]">
+                  This reflects how many sections you've filled in — not a real ATS keyword match.{' '}
+                  <button
+                    onClick={() => navigate('/ats-analyzer')}
+                    className="text-[#2563EB] hover:underline cursor-pointer"
+                  >
+                    Run a real ATS scan
+                  </button>
+                  {' '}against a job description for an accurate score.
+                </p>
+              )}
             </div>
 
             {/* Completion Checklist */}
