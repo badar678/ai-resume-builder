@@ -35,8 +35,8 @@ function ScoreRing({ score }) {
         {score >= 70
           ? '🎉 Your resume is a strong match for this job!'
           : score >= 40
-          ? '⚠️ Some improvements needed to pass ATS filters.'
-          : '❌ Resume needs significant work for this role.'}
+            ? '⚠️ Some improvements needed to pass ATS filters.'
+            : '❌ Resume needs significant work for this role.'}
       </p>
     </div>
   )
