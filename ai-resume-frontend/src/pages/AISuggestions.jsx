@@ -304,7 +304,7 @@ export default function AISuggestions() {
                             onClick={() => handleImprove(exp.description, key)}
                             disabled={improving === key}
                           >
-                            {improving === key ? '⏳ Improving...' : '✨ Improve All'}
+                            {improving === key ? '⏳ Improving...' : '✨ Improve'}
                           </Button>
                         </div>
                       </div>
@@ -440,7 +440,7 @@ export default function AISuggestions() {
                             onClick={() => handleImprove(proj.description, key)}
                             disabled={improving === key}
                           >
-                            {improving === key ? '⏳ Improving...' : '✨ Improve All'}
+                            {improving === key ? '⏳ Improving...' : '✨ Improve'}
                           </Button>
                         </div>
                       </div>
