@@ -83,6 +83,10 @@ export default function PricingPage() {
           {plans.map((plan) => {
             const isCurrent = currentPlan === plan.id
             const isProCancelling = plan.id === 'pro' && isCurrent && cancelAtPeriodEnd
+            // Once cancellation is already scheduled, "Switch to Free" on
+            // this card would just re-trigger the same cancel action —
+            // confusing, since it looks like nothing has happened yet.
+            const isFreeCardRedundant = plan.id === 'free' && cancelAtPeriodEnd
             return (
               <Card
                 key={plan.id}
@@ -110,19 +114,21 @@ export default function PricingPage() {
 
                 <Button
                   variant={isCurrent ? 'outline' : plan.highlighted ? 'primary' : 'secondary'}
-                  disabled={isCurrent && !isProCancelling}
+                  disabled={(isCurrent && !isProCancelling) || isFreeCardRedundant}
                   className="w-full mt-8"
                   onClick={() => {
                     if (isProCancelling) setShowResumeConfirm(true)
                     else if (plan.id === 'pro') setShowUpgrade(true)
-                    else setShowDowngrade(true)
+                    else if (!isFreeCardRedundant) setShowDowngrade(true)
                   }}
                 >
                   {isProCancelling
                     ? 'Renew Subscription'
-                    : isCurrent
-                      ? 'Current Plan'
-                      : plan.id === 'pro' ? 'Upgrade to Pro' : 'Switch to Free'}
+                    : isFreeCardRedundant
+                      ? `Ending ${expiryDate || 'soon'}`
+                      : isCurrent
+                        ? 'Current Plan'
+                        : plan.id === 'pro' ? 'Upgrade to Pro' : 'Switch to Free'}
                 </Button>
 
                 {/* Explicit cancel action for an active Pro subscriber —
