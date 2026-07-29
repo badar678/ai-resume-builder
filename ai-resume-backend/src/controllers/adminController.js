@@ -4,11 +4,7 @@ const Subscription = require("../models/Subscription");
 
 const KNOWN_TEMPLATES = [
   { id: "modern", name: "Modern" },
-  { id: "minimal", name: "Minimal" },
-  { id: "creative", name: "Creative" },
   { id: "executive", name: "Executive" },
-  { id: "compact", name: "Compact" },
-  { id: "classic", name: "Classic" },
 ];
 
 // GET /api/admin/users
