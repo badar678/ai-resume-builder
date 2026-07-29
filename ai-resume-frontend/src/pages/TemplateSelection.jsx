@@ -27,7 +27,7 @@ const TEMPLATES = [
   },
 ]
 
-function TemplateCard({ template, onPreview, onSelect, isSelected, locked, onLockedClick }) {
+function TemplateCard({ template, onPreview, isSelected, locked, onLockedClick }) {
   const TemplateComponent = getTemplate(template.id)
 
   return (
@@ -83,13 +83,10 @@ function TemplateCard({ template, onPreview, onSelect, isSelected, locked, onLoc
         <p className="text-xs text-[#475569] mb-4">{template.description}</p>
 
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex-1" onClick={() => onPreview(template)}>
-            Preview
-          </Button>
           {locked ? (
             <Button
               size="sm"
-              className="flex-1"
+              className="w-full"
               variant="primary"
               onClick={() => onLockedClick(template)}
             >
@@ -98,9 +95,9 @@ function TemplateCard({ template, onPreview, onSelect, isSelected, locked, onLoc
           ) : (
             <Button
               size="sm"
-              className="flex-1"
+              className="w-full"
               variant={isSelected ? 'secondary' : 'primary'}
-              onClick={() => onSelect(template)}
+              onClick={() => onPreview(template)}
             >
               {isSelected ? '✓ Selected' : 'Use This'}
             </Button>
@@ -132,10 +129,6 @@ const resumeData = useResumeStore((s) => s.resumeData)
   const proTemplates = TEMPLATES.filter((t) => t.plan === 'pro')
   const showFree = activeFilter === 'All' || activeFilter === 'Free'
   const showPro = activeFilter === 'All' || activeFilter === 'Pro'
-
-  const handleSelect = (template) => {
-    updateSection('templateId', template.id)
-  }
 
   // "Upgrade to Use" now sends the user straight to the Pricing page
   // instead of opening the in-page UpgradeModal, so they see the full
@@ -219,7 +212,6 @@ const resumeData = useResumeStore((s) => s.resumeData)
                   key={template.id}
                   template={template}
                   onPreview={setPreviewTemplate}
-                  onSelect={handleSelect}
                   isSelected={currentTemplateId === template.id}
                 />
               ))}
@@ -242,7 +234,6 @@ const resumeData = useResumeStore((s) => s.resumeData)
                   key={template.id}
                   template={template}
                   onPreview={setPreviewTemplate}
-                  onSelect={handleSelect}
                   isSelected={currentTemplateId === template.id}
                   locked={!isPro}
                   onLockedClick={handleLockedClick}
