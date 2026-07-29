@@ -141,6 +141,7 @@ export default function ExecutiveTemplate({ data }) {
                   <div>
                     <p className="font-bold text-[#0F172A] text-[11px]">{c.name}</p>
                     <p className="text-[#475569] text-[11px]">{c.issuer}</p>
+                    {c.link && <a href={c.link} className="text-[#16A34A] text-[11px] break-all">{c.link}</a>}
                   </div>
                   {c.date && <p className="text-[#94A3B8] text-[11px] whitespace-nowrap">{c.date}</p>}
                 </div>

@@ -93,7 +93,10 @@ export default function MinimalTemplate({ data }) {
             </h2>
             {certifications.map((c, i) => (
               <div key={i} className="flex justify-between">
-                <p className="font-bold">{c.name} — <span className="font-normal">{c.issuer}</span></p>
+                <div>
+                  <p className="font-bold">{c.name} — <span className="font-normal">{c.issuer}</span></p>
+                  {c.link && <p className="text-[#475569] text-[9px] break-all">{c.link}</p>}
+                </div>
                 {c.date && <p className="text-[#94A3B8] text-[9px]">{c.date}</p>}
               </div>
             ))}

@@ -115,6 +115,7 @@ export default function CreativeTemplate({ data }) {
                 <div>
                   <p className="font-bold">{c.name}</p>
                   <p className="text-[#475569]">{c.issuer}</p>
+                  {c.link && <a href={c.link} className="text-[#7C3AED] text-[9px] break-all">{c.link}</a>}
                 </div>
                 {c.date && <p className="text-[#94A3B8] text-[9px]">{c.date}</p>}
               </div>

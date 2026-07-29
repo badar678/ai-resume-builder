@@ -54,6 +54,7 @@ export default function CompactTemplate({ data }) {
               <div key={i} className="mb-1">
                 <p className="font-bold text-[8px] text-white">{c.name}</p>
                 <p className="text-cyan-300 text-[8px]">{c.issuer}</p>
+                {c.link && <a href={c.link} className="text-cyan-200 text-[7px] break-all">{c.link}</a>}
               </div>
             ))}
           </div>
