@@ -23,12 +23,12 @@ export default function ExecutiveTemplate({ data }) {
             {p.title && (
               <p className="text-[12px] font-semibold text-[#DCFCE7] mt-1 uppercase tracking-wide">{p.title}</p>
             )}
-            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-[#DCFCE7] text-[10px]">
-              {p.phone && <span>📱 {p.phone}</span>}
-              {p.email && <span>📧 {p.email}</span>}
-              {p.website && <span>🌐 {p.website}</span>}
-              {p.linkedin && <span>💼 {p.linkedin}</span>}
-              {p.location && <span>📍 {p.location}</span>}
+            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-[#DCFCE7] text-[11px]">
+              {p.phone && <span>✆ {p.phone}</span>}
+              {p.email && <span>✉ {p.email}</span>}
+              {p.website && <span>⊕ {p.website}</span>}
+              {p.linkedin && <span>in {p.linkedin}</span>}
+              {p.location && <span>⌖  {p.location}</span>}
             </div>
           </div>
 
@@ -90,8 +90,9 @@ export default function ExecutiveTemplate({ data }) {
                   <span className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-[#16A34A]" />
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <p className="font-bold text-[#0F172A] text-[11px]">{edu.degree}{edu.field ? ` in ${edu.field}` : ''}</p>
                       <p className="text-[#16A34A] text-[11px] font-semibold">{edu.school}</p>
+                      <p className="font-bold text-[#0F172A] text-[11px] mt-0.5">{edu.degree}</p>
+                      {edu.field && <p className="text-[#475569] text-[11px] mt-0.5">{edu.field}</p>}
                       {edu.gpa && <p className="text-[#475569] text-[11px]">GPA: {edu.gpa}</p>}
                     </div>
                     <p className="text-[#94A3B8] text-[11px] whitespace-nowrap font-medium">
