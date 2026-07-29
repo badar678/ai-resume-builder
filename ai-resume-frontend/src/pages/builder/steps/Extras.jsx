@@ -92,13 +92,12 @@ export default function Extras() {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-[#475569] mb-1">Details (Optional)</label>
+          <label className="block text-xs font-medium text-[#475569] mb-1">Details</label>
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
             rows={3}
-            placeholder="e.g. English (Native), Spanish (Fluent), French (Basic)"
             className="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] text-sm
               text-[#0F172A] placeholder-[#94A3B8] outline-none resize-none
               focus:ring-2 focus:ring-[#2563EB] focus:border-transparent bg-white"

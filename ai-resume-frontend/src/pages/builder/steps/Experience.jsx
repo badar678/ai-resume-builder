@@ -167,7 +167,7 @@ export default function Experience() {
             value={form.description}
             onChange={handleChange}
             rows={3}
-            placeholder="• Led development of key features that increased user retention by 30%"
+            placeholder="Designed and developed scalable web applications using React, Node.js, and TypeScript"
             className="w-full px-3 py-2 rounded-xl border border-[#E2E8F0] text-sm
               text-[#0F172A] placeholder-[#94A3B8] outline-none resize-none
               focus:ring-2 focus:ring-[#2563EB] focus:border-transparent bg-white"

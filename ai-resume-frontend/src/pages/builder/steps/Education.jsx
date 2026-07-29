@@ -80,7 +80,7 @@ export default function Education() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
-            { name: 'school', label: 'School / University', placeholder: 'MIT' },
+            { name: 'school', label: 'School / University' },
             { name: 'degree', label: 'Degree', placeholder: 'Bachelor of Science' },
             { name: 'field', label: 'Field of Study', placeholder: 'Computer Science' },
             { name: 'gpa', label: 'GPA (Optional)', placeholder: '3.8' },
