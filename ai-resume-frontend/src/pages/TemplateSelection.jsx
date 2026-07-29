@@ -119,7 +119,6 @@ const currentTemplateId = useResumeStore((s) => s.resumeData.templateId)
 const resumeData = useResumeStore((s) => s.resumeData)
 
   const [previewTemplate, setPreviewTemplate] = useState(null)
-  const [previewWithMyData, setPreviewWithMyData] = useState(false)
   const [activeFilter, setActiveFilter] = useState('All')
 
   const { subscription, fetchSubscription } = useSubscriptionStore()
@@ -163,7 +162,6 @@ const resumeData = useResumeStore((s) => s.resumeData)
 }
 
   const PreviewTemplateComponent = previewTemplate ? getTemplate(previewTemplate.id) : null
-  const previewData = previewWithMyData ? resumeData : sampleData
 
   return (
     <AppLayout title="Templates">
@@ -259,29 +257,11 @@ const resumeData = useResumeStore((s) => s.resumeData)
       {/* Preview Modal — full template render */}
       <Modal
         isOpen={!!previewTemplate}
-        onClose={() => { setPreviewTemplate(null); setPreviewWithMyData(false) }}
+        onClose={() => setPreviewTemplate(null)}
         title={`${previewTemplate?.name} Template`}
       >
         {previewTemplate && PreviewTemplateComponent && (
           <div className="space-y-4">
-
-            {/* Toggle — sample data vs my data */}
-            <div className="flex items-center justify-center gap-2 bg-[#F8FAFC] rounded-xl p-1">
-              <button
-                onClick={() => setPreviewWithMyData(false)}
-                className={`flex-1 text-xs font-medium py-1.5 rounded-lg transition-all cursor-pointer
-                  ${!previewWithMyData ? 'bg-white shadow-sm text-[#0F172A]' : 'text-[#94A3B8]'}`}
-              >
-                Sample Data
-              </button>
-              <button
-                onClick={() => setPreviewWithMyData(true)}
-                className={`flex-1 text-xs font-medium py-1.5 rounded-lg transition-all cursor-pointer
-                  ${previewWithMyData ? 'bg-white shadow-sm text-[#0F172A]' : 'text-[#94A3B8]'}`}
-              >
-                My Resume Data
-              </button>
-            </div>
 
             {/* Full Template Preview */}
             <div className="relative h-80 overflow-hidden rounded-xl border border-[#E2E8F0] bg-white">
@@ -289,7 +269,7 @@ const resumeData = useResumeStore((s) => s.resumeData)
                 className="absolute inset-0 origin-top-left pointer-events-none"
                 style={{ transform: 'scale(0.5)', width: '200%', height: '200%' }}
               >
-                <PreviewTemplateComponent data={previewData} />
+                <PreviewTemplateComponent data={sampleData} />
               </div>
             </div>
 
