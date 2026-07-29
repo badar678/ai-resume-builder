@@ -23,7 +23,7 @@ const STEPS = [
   { label: 'Skills', icon: '⚡', component: Skills },
   { label: 'Projects', icon: '🚀', component: Projects },
   { label: 'Certifications', icon: '🏆', component: Certifications },
-  { label: 'Extras', icon: '➕', component: Extras },
+  { label: 'Additional', icon: '📌', component: Extras },
 ]
 
 function UserMenu() {
