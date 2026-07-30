@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import toast from 'react-hot-toast'
+import Logo from '../ui/Logo'
 
 const navItems = [
   { path: '/dashboard', icon: '🏠', label: 'Dashboard' },
@@ -28,9 +29,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="px-6 py-6 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-[#2563EB] rounded-xl flex items-center justify-center">
-            <span className="text-white font-bold text-base">R</span>
-          </div>
+          <Logo iconSize={36} showText={false} />
           <div>
             <p className="font-bold text-white text-base leading-tight">ResumeAI</p>
             <p className="text-white/40 text-xs">Resume Builder</p>

@@ -14,6 +14,7 @@ import LivePreview from './LivePreview'
 import Button from '../../components/ui/Button'
 import api from '../../services/api'
 import toast from 'react-hot-toast'
+import Logo from '../../components/ui/Logo'
 
 const STEPS = [
   { label: 'Personal Info', icon: '👤', mobileIcon: '🪪', component: PersonalInfo },
@@ -198,10 +199,7 @@ const handleNext = async () => {
 
         {/* Left — Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#2563EB] rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">R</span>
-          </div>
-          <span className="font-bold text-[#0F172A] text-lg">ResumeAI</span>
+          <Logo iconSize={32} textClassName="font-bold text-[#0F172A] text-lg" />
         </div>
 
         {/* Center — Resume Title */}

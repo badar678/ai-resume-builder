@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Logo from '../ui/Logo'
 
 export default function AuthLayout({ children, title, subtitle }) {
   return (
@@ -8,10 +9,7 @@ export default function AuthLayout({ children, title, subtitle }) {
       <nav className="w-full px-6 py-4 bg-white border-b border-[#E2E8F0]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#2563EB] rounded-lg flex items-center justify-center">
-              <span className="text-white text-sm font-bold">R</span>
-            </div>
-            <span className="text-[#0F172A] font-bold text-lg">ResumeAI</span>
+            <Logo iconSize={32} textClassName="text-[#0F172A] font-bold text-lg" />
           </Link>
           <div className="flex items-center gap-4 text-sm text-[#475569]">
             <Link to="/login" className="hover:text-[#2563EB] transition-colors">Login</Link>
@@ -33,9 +31,9 @@ export default function AuthLayout({ children, title, subtitle }) {
           <div className="bg-white rounded-[12px] shadow-sm border border-[#E2E8F0] p-8">
 
             {/* Header */}
-            <div className="mb-8 text-center">
-              <div className="w-12 h-12 bg-[#2563EB] rounded-xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-xl font-bold">R</span>
+           <div className="mb-8 text-center">
+              <div className="flex justify-center mb-4">
+                <Logo iconSize={48} showText={false} />
               </div>
               <h1 className="text-2xl font-bold text-[#0F172A]">{title}</h1>
               {subtitle && (
@@ -49,7 +47,7 @@ export default function AuthLayout({ children, title, subtitle }) {
 
           {/* Footer */}
           <p className="text-center text-xs text-[#94A3B8] mt-6">
-            © 2025 ResumeAI. All rights reserved.
+            © 2026 ResumeAI. All rights reserved.
           </p>
         </div>
       </div>

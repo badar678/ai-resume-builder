@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import toast from 'react-hot-toast'
+import Logo from '../ui/Logo'
 
 export default function Navbar({ title = 'Dashboard' }) {
   const navigate = useNavigate()
@@ -26,10 +27,7 @@ export default function Navbar({ title = 'Dashboard' }) {
       <div className="flex items-center gap-3">
         {/* Mobile Logo */}
         <div className="flex lg:hidden items-center gap-2">
-          <div className="w-8 h-8 bg-[#2563EB] rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">R</span>
-          </div>
-          <span className="font-bold text-[#0F172A] text-base">ResumeAI</span>
+          <Logo iconSize={32} textClassName="font-bold text-[#0F172A] text-base" />
         </div>
         {/* Desktop Page Title */}
         <h1 className="hidden lg:block text-lg font-semibold text-[#0F172A]">
