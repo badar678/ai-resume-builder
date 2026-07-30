@@ -44,7 +44,7 @@ export default function Register() {
       title="Create your account"
       subtitle="Start building your perfect resume today"
     >
-      <div className="space-y-5">
+      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
         {/* Server Error */}
         {serverError && (
@@ -153,7 +153,6 @@ export default function Register() {
           type="submit"
           className="w-full"
           disabled={loading}
-          onClick={handleSubmit(onSubmit)}
         >
           {loading ? 'Creating account...' : 'Create Account'}
         </Button>
@@ -175,7 +174,7 @@ export default function Register() {
           </Button>
         </Link>
 
-      </div>
+      </form>
     </AuthLayout>
   )
 }

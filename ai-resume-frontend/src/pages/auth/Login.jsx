@@ -39,7 +39,7 @@ export default function Login() {
       title="Welcome back"
       subtitle="Sign in to your ResumeAI account"
     >
-      <div className="space-y-5">
+      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
         {/* Server Error */}
         {serverError && (
@@ -111,7 +111,6 @@ export default function Login() {
           type="submit"
           className="w-full"
           disabled={loading}
-          onClick={handleSubmit(onSubmit)}
         >
           {loading ? 'Signing in...' : 'Sign In'}
         </Button>
@@ -133,7 +132,7 @@ export default function Login() {
           </Button>
         </Link>
 
-      </div>
+      </form>
     </AuthLayout>
   )
 }
