@@ -32,9 +32,13 @@ export default function ExecutiveTemplate({ data }) {
             </div>
           </div>
 
-          {/* Avatar circle (initials placeholder, no photo field in data model) */}
-          <div className="relative shrink-0 w-[76px] h-[76px] rounded-full bg-white/20 border-4 border-white/30 flex items-center justify-center">
-            <span className="text-white text-xl font-bold">{initials}</span>
+          {/* Avatar circle: uploaded photo if available, otherwise initials */}
+          <div className="relative shrink-0 w-[76px] h-[76px] rounded-full bg-white/20 border-4 border-white/30 flex items-center justify-center overflow-hidden">
+            {p.photo ? (
+              <img src={p.photo} alt={p.fullName || 'Profile'} className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-white text-xl font-bold">{initials}</span>
+            )}
           </div>
         </div>
 
