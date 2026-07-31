@@ -4,6 +4,7 @@ import useResumeStore from '../../../store/resumeStore'
 import Button from '../../../components/ui/Button'
 import api from '../../../services/api'
 import toast from 'react-hot-toast'
+import { Loader2, Sparkles, Lightbulb } from 'lucide-react'
 
 export default function Summary() {
   const summary = useResumeStore((s) => s.resumeData.summary)
@@ -53,7 +54,7 @@ export default function Summary() {
             onClick={handleGenerate}
             disabled={generating}
           >
-            {generating ? '⏳ Generating...' : '✨ Generate with AI'}
+            {generating ? <><Loader2 size={14} className="inline animate-spin mr-1" />Generating...</> : <><Sparkles size={14} className="inline mr-1" />Generate with AI</>}
           </Button>
         </div>
         <textarea
@@ -71,7 +72,7 @@ export default function Summary() {
 
       {/* Tips */}
       <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 space-y-2">
-        <p className="text-xs font-semibold text-[#2563EB]">💡 Tips for a great summary:</p>
+        <p className="text-xs font-semibold text-[#2563EB]"><Lightbulb size={14} className="inline mr-1" />Tips for a great summary:</p>
         <ul className="text-xs text-[#475569] space-y-1">
           <li>• Start with your job title and years of experience</li>
           <li>• Mention your top 2-3 skills or specializations</li>

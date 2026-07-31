@@ -1,3 +1,5 @@
+import { Mail, Phone } from 'lucide-react'
+
 export default function ExecutiveTemplate({ data }) {
   const { personalInfo: p, summary, experience, education, skills, projects, certifications, extras } = data
   const initials = (p.fullName || 'Y N')
@@ -24,8 +26,8 @@ export default function ExecutiveTemplate({ data }) {
               <p className="text-[12px] font-semibold text-[#DCFCE7] mt-1 uppercase tracking-wide">{p.title}</p>
             )}
             <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-[#DCFCE7] text-[11px]">
-              {p.phone && <span>✆ {p.phone}</span>}
-              {p.email && <span>✉ {p.email}</span>}
+              {p.phone && <span className="inline-flex items-center gap-1"><Phone size={11} />{p.phone}</span>}
+              {p.email && <span className="inline-flex items-center gap-1"><Mail size={11} />{p.email}</span>}
               {p.website && <span>⊕ {p.website}</span>}
               {p.linkedin && <span>in {p.linkedin}</span>}
               {p.location && <span>⌖  {p.location}</span>}

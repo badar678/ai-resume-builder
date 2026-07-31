@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import AuthLayout from '../../components/layout/AuthLayout'
 import Button from '../../components/ui/Button'
 import api from '../../services/api'
+import { Mail } from 'lucide-react'
 
 export default function ForgotPassword() {
   const [submitted, setSubmitted] = useState(false)
@@ -44,7 +45,7 @@ export default function ForgotPassword() {
         <div className="text-center space-y-4">
 
           <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto">
-            <span className="text-3xl">📧</span>
+            <Mail size={32} className="text-[#2563EB]" />
           </div>
 
           <h3 className="text-lg font-semibold text-[#0F172A]">

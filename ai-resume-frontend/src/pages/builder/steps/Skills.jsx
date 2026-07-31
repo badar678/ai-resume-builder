@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import useResumeStore from '../../../store/resumeStore'
 import Button from '../../../components/ui/Button'
+import { X } from 'lucide-react'
 
 export default function Skills() {
   const skills = useResumeStore((s) => s.resumeData.skills)
@@ -60,7 +61,7 @@ export default function Skills() {
                 onClick={() => handleDelete(skill)}
                 className="text-[#2563EB] hover:text-[#EF4444] transition-colors cursor-pointer text-xs font-bold"
               >
-                ✕
+                <X size={14} />
               </button>
             </span>
           ))}

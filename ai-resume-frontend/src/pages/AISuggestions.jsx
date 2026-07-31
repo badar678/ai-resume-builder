@@ -5,10 +5,11 @@ import Button from '../components/ui/Button'
 import api from '../services/api'
 import useSubscriptionStore from '../store/subscriptionStore'
 import toast from 'react-hot-toast'
+import { Briefcase, FolderOpen, Sparkles, Bot, Lock, Gem, Lightbulb, Loader2, CheckCircle2, Copy, RefreshCw } from 'lucide-react'
 
 const SECTIONS = [
-  { id: 'experience', label: '💼 Experience' },
-  { id: 'projects', label: '📁 Projects' },
+  { id: 'experience', label: 'Experience', icon: Briefcase },
+  { id: 'projects', label: 'Projects', icon: FolderOpen },
 ]
 
 export default function AISuggestions() {
@@ -120,7 +121,9 @@ export default function AISuggestions() {
 
         {/* Header */}
         <div>
-          <h2 className="text-2xl font-bold text-[#0F172A]">✨ AI Suggestions</h2>
+          <h2 className="text-2xl font-bold text-[#0F172A]">
+            <Sparkles size={20} className="inline mr-1.5 text-[#7C3AED]" />AI Suggestions
+          </h2>
           <p className="text-sm text-[#475569] mt-0.5">
             Let AI rewrite your resume content to be more impactful and ATS-friendly
           </p>
@@ -129,7 +132,7 @@ export default function AISuggestions() {
         {/* Info Banner */}
         {isPro ? (
           <div className="bg-gradient-to-r from-[#7C3AED]/10 to-[#2563EB]/10 border border-purple-100 rounded-[12px] p-4 flex gap-3">
-            <span className="text-xl shrink-0">🤖</span>
+            <Bot size={20} className="shrink-0" />
             <div>
               <p className="text-sm font-semibold text-[#7C3AED]">Powered by Llama 3.3</p>
               <p className="text-xs text-[#475569] mt-0.5">
@@ -141,7 +144,7 @@ export default function AISuggestions() {
         ) : (
           <div className="bg-gradient-to-r from-[#7C3AED]/10 to-[#2563EB]/10 border border-purple-100 rounded-[12px] p-4 flex items-center justify-between gap-3">
             <div className="flex gap-3">
-              <span className="text-xl shrink-0">🔒</span>
+              <Lock size={20} className="shrink-0" />
               <div>
                 <p className="text-sm font-semibold text-[#7C3AED]">AI Suggestions is a Pro feature</p>
                 <p className="text-xs text-[#475569] mt-0.5">
@@ -154,7 +157,7 @@ export default function AISuggestions() {
               className="bg-[#7C3AED] text-white text-xs font-semibold px-4 py-2
                 rounded-xl hover:bg-purple-700 transition-colors cursor-pointer whitespace-nowrap shrink-0"
             >
-              💎 Upgrade
+              <Gem size={14} className="inline mr-1" />Upgrade
             </button>
           </div>
         )}
@@ -171,7 +174,7 @@ export default function AISuggestions() {
                   : 'text-[#475569] hover:bg-[#F1F5F9]'
                 }`}
             >
-              {section.label}
+                <section.icon size={14} className="inline mr-1" />{section.label}
             </button>
           ))}
         </div>
@@ -222,11 +225,11 @@ export default function AISuggestions() {
 
             {/* Tips */}
             <div className="bg-purple-50 border border-purple-100 rounded-[12px] p-4 space-y-2">
-              <p className="text-xs font-semibold text-[#7C3AED]">💡 How to use</p>
+              <p className="text-xs font-semibold text-[#7C3AED]"><Lightbulb size={14} className="inline mr-1" />How to use</p>
               <ul className="text-xs text-[#475569] space-y-1">
                 <li>1. Pick Experience or Projects</li>
                 <li>2. Select your resume</li>
-                <li>3. Click ✨ Improve</li>
+                <li>3. Click <Sparkles size={12} className="inline" /> Improve</li>
                 <li>4. Apply or copy to your resume</li>
               </ul>
             </div>
@@ -238,7 +241,7 @@ export default function AISuggestions() {
 
             {!selectedResume && (
               <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-12 text-center">
-                <span className="text-4xl">✨</span>
+                <Sparkles size={40} className="text-[#7C3AED]" />
                 <p className="text-lg font-semibold text-[#0F172A] mt-3">Select a resume</p>
                 <p className="text-sm text-[#475569] mt-1">Choose a resume from the left to get AI suggestions</p>
               </div>
@@ -247,7 +250,7 @@ export default function AISuggestions() {
             {/* ===== EXPERIENCE SECTION ===== */}
             {selectedResume && activeSection === 'experience' && (selectedResume.experience || []).length === 0 && (
               <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-12 text-center">
-                <span className="text-4xl">💼</span>
+                <Briefcase size={40} className="text-[#94A3B8]" />
                 <p className="text-lg font-semibold text-[#0F172A] mt-3">No experience entries</p>
                 <p className="text-sm text-[#475569] mt-1 mb-4">Add work experience to your resume first</p>
                 <Button
@@ -304,7 +307,7 @@ export default function AISuggestions() {
                             onClick={() => handleImprove(exp.description, key)}
                             disabled={improving === key}
                           >
-                            {improving === key ? '⏳ Improving...' : '✨ Improve'}
+                            {improving === key ? <><Loader2 size={14} className="inline animate-spin mr-1" />Improving...</> : <><Sparkles size={14} className="inline mr-1" />Improve</>}
                           </Button>
                         </div>
                       </div>
@@ -332,7 +335,7 @@ export default function AISuggestions() {
                       {results[key] && (
                         <div className="bg-white rounded-[12px] border-2 border-[#7C3AED] p-4 space-y-3">
                           <h4 className="text-xs font-semibold text-[#7C3AED] uppercase tracking-wider">
-                            ✨ AI Improved Version
+                            <Sparkles size={14} className="inline mr-1" />AI Improved Version
                           </h4>
 
 
@@ -351,7 +354,7 @@ export default function AISuggestions() {
                               className="flex-1"
                               onClick={() => handleApplyExperience(expIndex, results[key])}
                             >
-                              ✅ Apply to Resume
+                              <CheckCircle2 size={14} className="inline mr-1" />Apply to Resume
                             </Button>
                             <Button
                               size="sm"
@@ -359,7 +362,7 @@ export default function AISuggestions() {
                               className="flex-1"
                               onClick={() => handleCopy(results[key])}
                             >
-                              📋 Copy
+                              <Copy size={14} className="inline mr-1" />Copy
                             </Button>
                             <Button
                               size="sm"
@@ -367,7 +370,7 @@ export default function AISuggestions() {
                               onClick={() => handleImprove(exp.description, key)}
                               disabled={improving === key}
                             >
-                              🔄 Retry
+                              <RefreshCw size={14} className="inline mr-1" />Retry
                             </Button>
                           </div>
                         </div>
@@ -383,7 +386,7 @@ export default function AISuggestions() {
             {/* ===== PROJECTS SECTION ===== */}
             {selectedResume && activeSection === 'projects' && (selectedResume.projects || []).length === 0 && (
               <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-12 text-center">
-                <span className="text-4xl">📁</span>
+                <FolderOpen size={40} className="text-[#94A3B8]" />
                 <p className="text-lg font-semibold text-[#0F172A] mt-3">No project entries</p>
                 <p className="text-sm text-[#475569] mt-1 mb-4">Add a project to your resume first</p>
                 <Button
@@ -440,7 +443,7 @@ export default function AISuggestions() {
                             onClick={() => handleImprove(proj.description, key)}
                             disabled={improving === key}
                           >
-                            {improving === key ? '⏳ Improving...' : '✨ Improve'}
+                            {improving === key ? <><Loader2 size={14} className="inline animate-spin mr-1" />Improving...</> : <><Sparkles size={14} className="inline mr-1" />Improve</>}
                           </Button>
                         </div>
                       </div>
@@ -468,7 +471,7 @@ export default function AISuggestions() {
                       {results[key] && (
                         <div className="bg-white rounded-[12px] border-2 border-[#7C3AED] p-4 space-y-3">
                           <h4 className="text-xs font-semibold text-[#7C3AED] uppercase tracking-wider">
-                            ✨ AI Improved Version
+                            <Sparkles size={14} className="inline mr-1" />AI Improved Version
                           </h4>
 
 
@@ -487,7 +490,7 @@ export default function AISuggestions() {
                               className="flex-1"
                               onClick={() => handleApplyProject(projIndex, results[key])}
                             >
-                              ✅ Apply to Resume
+                              <CheckCircle2 size={14} className="inline mr-1" />Apply to Resume
                             </Button>
                             <Button
                               size="sm"
@@ -495,7 +498,7 @@ export default function AISuggestions() {
                               className="flex-1"
                               onClick={() => handleCopy(results[key])}
                             >
-                              📋 Copy
+                              <Copy size={14} className="inline mr-1" />Copy
                             </Button>
                             <Button
                               size="sm"
@@ -503,7 +506,7 @@ export default function AISuggestions() {
                               onClick={() => handleImprove(proj.description, key)}
                               disabled={improving === key}
                             >
-                              🔄 Retry
+                              <RefreshCw size={14} className="inline mr-1" />Retry
                             </Button>
                           </div>
                         </div>

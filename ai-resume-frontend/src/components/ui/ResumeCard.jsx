@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Card from './Card'
+import { Pencil, Copy, Trash2 } from 'lucide-react'
 
 export default function ResumeCard({ resume, onDelete, onDuplicate }) {
   const navigate = useNavigate()
@@ -37,7 +38,9 @@ export default function ResumeCard({ resume, onDelete, onDuplicate }) {
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-[#2563EB]/80 opacity-0 group-hover:opacity-100
           transition-opacity duration-200 flex items-center justify-center">
-          <span className="text-white text-sm font-semibold">✏️ Edit Resume</span>
+          <span className="text-white text-sm font-semibold flex items-center">
+            <Pencil size={14} className="inline mr-1" />Edit Resume
+          </span>
         </div>
       </div>
 
@@ -72,21 +75,21 @@ export default function ResumeCard({ resume, onDelete, onDuplicate }) {
             className="flex-1 text-xs font-medium text-[#2563EB] hover:bg-blue-50
               py-1.5 rounded-lg transition-colors cursor-pointer"
           >
-            ✏️ Edit
+            <Pencil size={14} className="inline mr-1" />Edit
           </button>
           <button
             onClick={() => onDuplicate(resume._id)}
             className="flex-1 text-xs font-medium text-[#475569] hover:bg-[#F1F5F9]
               py-1.5 rounded-lg transition-colors cursor-pointer"
           >
-            📋 Duplicate
+            <Copy size={14} className="inline mr-1" />Duplicate
           </button>
           <button
             onClick={() => onDelete(resume._id)}
             className="flex-1 text-xs font-medium text-[#EF4444] hover:bg-red-50
               py-1.5 rounded-lg transition-colors cursor-pointer"
           >
-            🗑️ Delete
+            <Trash2 size={14} className="inline mr-1" />Delete
           </button>
         </div>
       </div>

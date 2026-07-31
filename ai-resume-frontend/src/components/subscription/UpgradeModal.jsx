@@ -4,6 +4,7 @@ import Button from '../ui/Button'
 import useAuthStore from '../../store/authStore'
 import usePaddle from '../../hooks/usePaddle'
 import toast from 'react-hot-toast'
+import { Check, Lock } from 'lucide-react'
 
 export default function UpgradeModal({ isOpen, onClose, onSuccess }) {
   const [processing, setProcessing] = useState(false)
@@ -69,13 +70,13 @@ export default function UpgradeModal({ isOpen, onClose, onSuccess }) {
             'Unlimited PDF downloads',
           ].map((feature) => (
             <li key={feature} className="flex items-center gap-2 text-sm text-[#475569]">
-              <span className="text-[#22C55E]">✓</span> {feature}
+              <Check size={14} className="text-[#22C55E] inline" /> {feature}
             </li>
           ))}
         </ul>
 
         <p className="text-xs text-[#94A3B8]">
-          🔒 Secure checkout powered by Paddle. Sandbox mode — use test card 4242 4242 4242 4242.
+          <Lock size={12} className="inline mr-1" />Secure checkout powered by Paddle. Sandbox mode — use test card 4242 4242 4242 4242.
         </p>
 
         <div className="flex items-center gap-3 justify-end pt-1">

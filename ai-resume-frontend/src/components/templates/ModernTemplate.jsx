@@ -1,3 +1,5 @@
+import { Mail, Phone } from 'lucide-react'
+
 export default function ModernTemplate({ data }) {
   const { personalInfo: p, summary, experience, education, skills, projects, certifications, extras } = data
 
@@ -8,8 +10,8 @@ export default function ModernTemplate({ data }) {
       <div className="bg-[#2563EB] text-white px-6 py-5">
         <h1 className="text-[26px] font-bold tracking-wide uppercase leading-tight">{p.fullName || 'Your Name'}</h1>
         <div className="flex flex-wrap gap-x-4 gap-y-0.5 mt-1.5 text-blue-100 text-[11px]">
-          {p.email && <span>✉ {p.email}</span>}
-          {p.phone && <span>✆ {p.phone}</span>}
+          {p.email && <span className="inline-flex items-center gap-1"><Mail size={11} />{p.email}</span>}
+          {p.phone && <span className="inline-flex items-center gap-1"><Phone size={11} />{p.phone}</span>}
           {p.location && <span>⌖ {p.location}</span>}
           {p.linkedin && <span>in {p.linkedin}</span>}
           {p.website && <span>⊕ {p.website}</span>}

@@ -5,6 +5,7 @@ import AuthLayout from '../../components/layout/AuthLayout'
 import Button from '../../components/ui/Button'
 import api from '../../services/api'
 import toast from 'react-hot-toast'
+import { CheckCircle2 } from 'lucide-react'
 
 export default function ResetPassword() {
   const navigate = useNavigate()
@@ -61,7 +62,7 @@ export default function ResetPassword() {
       {success ? (
         <div className="text-center space-y-4">
           <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto">
-            <span className="text-3xl">✅</span>
+            <CheckCircle2 size={32} className="text-[#22C55E]" />
           </div>
           <h3 className="text-lg font-semibold text-[#0F172A]">Password reset!</h3>
           <p className="text-sm text-[#475569]">

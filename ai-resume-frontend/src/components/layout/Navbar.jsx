@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import toast from 'react-hot-toast'
 import Logo from '../ui/Logo'
+import { Gem, LogOut } from 'lucide-react'
 
 export default function Navbar({ title = 'Dashboard' }) {
   const navigate = useNavigate()
@@ -77,7 +78,7 @@ export default function Navbar({ title = 'Dashboard' }) {
                   className="lg:hidden w-full flex items-center gap-2 px-3 py-2 text-sm text-[#0F172A]
                     whitespace-nowrap hover:bg-[#F1F5F9] rounded-xl transition-colors cursor-pointer"
                 >
-                  <span className="w-4 text-center shrink-0">💎</span>
+                  <Gem className="w-4 h-4 shrink-0" />
                   <span>Manage Plan</span>
                 </button>
                 <button
@@ -85,7 +86,7 @@ export default function Navbar({ title = 'Dashboard' }) {
                   className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#EF4444]
                     whitespace-nowrap hover:bg-red-50 rounded-xl transition-colors cursor-pointer"
                 >
-                  <span className="w-4 text-center shrink-0">🚪</span>
+                  <LogOut className="w-4 h-4 shrink-0" />
                   <span>Logout</span>
                 </button>
               </div>

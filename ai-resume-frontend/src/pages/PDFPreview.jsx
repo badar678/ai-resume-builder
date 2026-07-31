@@ -7,6 +7,7 @@ import useSubscriptionStore from '../store/subscriptionStore'
 import api from '../services/api'
 import toast from 'react-hot-toast'
 import { getTemplate } from '../components/templates'
+import { Pencil, Download, Loader2, PartyPopper, AlertTriangle, XCircle, Check, Lightbulb, FileText } from 'lucide-react'
 
 function ScoreRing({ score }) {
   const radius = 40
@@ -138,10 +139,10 @@ export default function PDFPreview() {
               variant="outline"
               onClick={() => navigate(`/builder/${resumeId}`)}
             >
-              ✏️ Edit Resume
+              <Pencil size={14} className="inline mr-1" />Edit Resume
             </Button>
             <Button onClick={handleDownload} disabled={downloading}>
-              {downloading ? '⏳ Generating...' : '⬇️ Download PDF'}
+              {downloading ? <><Loader2 size={14} className="inline animate-spin mr-1" />Generating...</> : <><Download size={14} className="inline mr-1" />Download PDF</>}
             </Button>
           </div>
         </div>
@@ -159,11 +160,13 @@ export default function PDFPreview() {
               <ScoreRing score={atsScore} />
               {hasRealScore ? (
                 <p className="text-xs text-[#475569]">
-                  {atsScore >= 70
-                    ? '🎉 Strong keyword match against the job description you analyzed.'
-                    : atsScore >= 40
-                    ? '⚠️ Fair match — add more of the missing keywords to your Skills section.'
-                    : '❌ Weak match — run the ATS Analyzer for specific keyword suggestions.'}
+                  {atsScore >= 70 ? (
+                    <><PartyPopper size={14} className="inline mr-1 text-[#22C55E]" />Strong keyword match against the job description you analyzed.</>
+                  ) : atsScore >= 40 ? (
+                    <><AlertTriangle size={14} className="inline mr-1 text-[#F59E0B]" />Fair match — add more of the missing keywords to your Skills section.</>
+                  ) : (
+                    <><XCircle size={14} className="inline mr-1 text-[#EF4444]" />Weak match — run the ATS Analyzer for specific keyword suggestions.</>
+                  )}
                 </p>
               ) : (
                 <p className="text-xs text-[#475569]">
@@ -187,7 +190,7 @@ export default function PDFPreview() {
                   <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0
                     ${item.done ? 'bg-[#10B981]' : 'bg-[#E2E8F0]'}`}>
                     {item.done
-                      ? <span className="text-white text-xs">✓</span>
+                      ? <Check size={12} className="text-white" />
                       : <span className="text-[#94A3B8] text-xs">○</span>}
                   </div>
                   <span className={`text-sm ${item.done ? 'text-[#0F172A]' : 'text-[#94A3B8]'}`}>
@@ -207,7 +210,7 @@ export default function PDFPreview() {
 
             {/* Tips Card */}
             <div className="bg-blue-50 border border-blue-100 rounded-[12px] p-4 space-y-2">
-              <p className="text-xs font-semibold text-[#2563EB]">💡 Boost your ATS Score</p>
+              <p className="text-xs font-semibold text-[#2563EB]"><Lightbulb size={14} className="inline mr-1" />Boost your ATS Score</p>
               <ul className="text-xs text-[#475569] space-y-1">
                 <li>• Add relevant keywords from job descriptions</li>
                 <li>• Keep formatting simple and clean</li>
@@ -234,7 +237,7 @@ export default function PDFPreview() {
                   {resumeData.title || 'Resume'}.pdf
                 </span>
                 <Button size="sm" onClick={handleDownload} disabled={downloading}>
-                  ⬇️ Download
+                  <Download size={14} className="inline mr-1" />Download
                 </Button>
               </div>
 
@@ -244,7 +247,7 @@ export default function PDFPreview() {
               <div className="overflow-y-auto max-h-[75vh]">
                 {!personalInfo.fullName ? (
                   <div className="text-center py-16 text-[#94A3B8]">
-                    <p className="text-4xl mb-3">📄</p>
+                    <FileText size={40} className="mx-auto mb-3 text-[#94A3B8]" />
                     <p className="font-medium">No resume data yet</p>
                     <p className="text-xs mt-1">Go back to the builder and fill in your details</p>
                     <button

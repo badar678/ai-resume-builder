@@ -3,11 +3,12 @@ import AppLayout from '../../components/layout/AppLayout'
 import Card from '../../components/ui/Card'
 import api from '../../services/api'
 import toast from 'react-hot-toast'
+import { Users, Palette, CreditCard, ShieldCheck } from 'lucide-react'
 
 const TABS = [
-  { id: 'users', label: '👥 Users' },
-  { id: 'templates', label: '🎨 Templates' },
-  { id: 'subscriptions', label: '💳 Subscriptions' },
+  { id: 'users', label: 'Users', icon: Users },
+  { id: 'templates', label: 'Templates', icon: Palette },
+  { id: 'subscriptions', label: 'Subscriptions', icon: CreditCard },
 ]
 
 export default function AdminPanel() {
@@ -71,7 +72,9 @@ export default function AdminPanel() {
       <div className="max-w-6xl mx-auto space-y-6">
 
         <div>
-          <h2 className="text-2xl font-bold text-[#0F172A]">🛡️ Admin Panel</h2>
+          <h2 className="text-2xl font-bold text-[#0F172A]">
+            <ShieldCheck size={20} className="inline mr-1.5" />Admin Panel
+          </h2>
           <p className="text-sm text-[#475569] mt-0.5">
             Manage users, monitor template usage, and track subscriptions
           </p>
@@ -89,7 +92,10 @@ export default function AdminPanel() {
                   : 'text-[#475569] hover:bg-[#F1F5F9]'
                 }`}
             >
-              {tab.label}
+              <span className="inline-flex items-center gap-1.5">
+                <tab.icon size={14} />
+                {tab.label}
+              </span>
             </button>
           ))}
         </div>

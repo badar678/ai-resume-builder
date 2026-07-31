@@ -6,6 +6,7 @@ import Button from '../components/ui/Button'
 import ConfirmModal from '../components/ui/ConfirmModal'
 import UpgradeModal from '../components/subscription/UpgradeModal'
 import useSubscriptionStore from '../store/subscriptionStore'
+import { Check } from 'lucide-react'
 
 const plans = [
   {
@@ -107,7 +108,7 @@ export default function PricingPage() {
                 <ul className="mt-6 space-y-2.5">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2 text-sm text-[#475569]">
-                      <span className="text-[#22C55E]">✓</span> {feature}
+                      <Check size={14} className="text-[#22C55E] inline" /> {feature}
                     </li>
                   ))}
                 </ul>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import AuthLayout from '../../components/layout/AuthLayout'
 import Button from '../../components/ui/Button'
+import { Mail, CheckCircle2 } from 'lucide-react'
 
 export default function EmailVerification() {
   return (
@@ -12,7 +13,7 @@ export default function EmailVerification() {
 
         {/* Icon */}
         <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto">
-          <span className="text-4xl">✉️</span>
+          <Mail size={40} className="text-[#2563EB]" />
         </div>
 
         {/* Message */}
@@ -30,10 +31,10 @@ export default function EmailVerification() {
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 text-left space-y-2">
           <p className="text-xs font-semibold text-[#2563EB]">What to do next:</p>
           <ul className="text-xs text-[#475569] space-y-1">
-            <li>✅ Open your email inbox</li>
-            <li>✅ Find the email from ResumeAI</li>
-            <li>✅ Click the "Verify Email" button</li>
-            <li>✅ Come back and log in</li>
+            <li className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#22C55E]" />Open your email inbox</li>
+            <li className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#22C55E]" />Find the email from ResumeAI</li>
+            <li className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#22C55E]" />Click the "Verify Email" button</li>
+            <li className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#22C55E]" />Come back and log in</li>
           </ul>
         </div>
 

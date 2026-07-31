@@ -2,6 +2,7 @@ import { useState } from 'react'
 import useResumeStore from '../../../store/resumeStore'
 import Button from '../../../components/ui/Button'
 import SortableList from '../../../components/ui/SortableList'
+import { Pencil, Trash2 } from 'lucide-react'
 
 const empty = { title: '', description: '' }
 
@@ -59,11 +60,11 @@ export default function Extras() {
                 <div className="flex gap-1 shrink-0">
                   <button onClick={() => handleEdit(i)}
                     className="text-xs text-[#2563EB] hover:bg-blue-50 px-2 py-1 rounded-lg cursor-pointer">
-                    ✏️
+                    <Pencil size={14} />
                   </button>
                   <button onClick={() => handleDelete(i)}
                     className="text-xs text-[#EF4444] hover:bg-red-50 px-2 py-1 rounded-lg cursor-pointer">
-                    🗑️
+                    <Trash2 size={14} />
                   </button>
                 </div>
               </div>
@@ -74,7 +75,7 @@ export default function Extras() {
 
       <div className="bg-white border border-[#E2E8F0] rounded-xl p-4 space-y-4">
         <p className="text-sm font-semibold text-[#0F172A]">
-          {editIndex !== null ? '✏️ Edit Entry' : '+ Add Entry'}
+          {editIndex !== null ? <><Pencil size={14} className="inline mr-1" />Edit Entry</> : <>+ Add Entry</>}
         </p>
 
         <div>

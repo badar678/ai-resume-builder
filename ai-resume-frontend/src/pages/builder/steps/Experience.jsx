@@ -2,6 +2,7 @@ import { useState } from 'react'
 import useResumeStore from '../../../store/resumeStore'
 import Button from '../../../components/ui/Button'
 import SortableList from '../../../components/ui/SortableList'
+import { Pencil, Trash2 } from 'lucide-react'
 
 const empty = {
   company: '', jobTitle: '', location: '',
@@ -79,13 +80,13 @@ export default function Experience() {
                     onClick={() => handleEdit(index)}
                     className="text-xs text-[#2563EB] hover:bg-blue-50 px-2 py-1 rounded-lg cursor-pointer"
                   >
-                    ✏️ Edit
+                    <Pencil size={14} className="inline mr-1" />Edit
                   </button>
                   <button
                     onClick={() => handleDelete(index)}
                     className="text-xs text-[#EF4444] hover:bg-red-50 px-2 py-1 rounded-lg cursor-pointer"
                   >
-                    🗑️
+                    <Trash2 size={14} />
                   </button>
                 </div>
               </div>
@@ -97,7 +98,7 @@ export default function Experience() {
       {/* Form */}
       <div className="bg-white border border-[#E2E8F0] rounded-xl p-4 space-y-4">
         <p className="text-sm font-semibold text-[#0F172A]">
-          {editIndex !== null ? '✏️ Edit Entry' : '+ Add Experience'}
+          {editIndex !== null ? <><Pencil size={14} className="inline mr-1" />Edit Entry</> : <>+ Add Experience</>}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

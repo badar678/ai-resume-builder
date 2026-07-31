@@ -1,5 +1,6 @@
 import useResumeStore from '../../store/resumeStore'
 import { getTemplate } from '../../components/templates'
+import { FileText } from 'lucide-react'
 
 export default function LivePreview() {
   const resumeData = useResumeStore((s) => s.resumeData)
@@ -28,7 +29,7 @@ export default function LivePreview() {
       <div className="overflow-y-auto max-h-[calc(100vh-220px)]">
         {isEmpty ? (
           <div className="text-center py-16 text-[#94A3B8]">
-            <p className="text-3xl mb-2">📄</p>
+            <FileText size={32} className="mx-auto mb-2 text-[#94A3B8]" />
             <p className="text-sm">Start filling in your details to see the preview</p>
           </div>
         ) : (

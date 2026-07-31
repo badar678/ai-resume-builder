@@ -15,16 +15,17 @@ import Button from '../../components/ui/Button'
 import api from '../../services/api'
 import toast from 'react-hot-toast'
 import Logo from '../../components/ui/Logo'
+import { User, IdCard, AlignLeft, Briefcase, GraduationCap, Zap, Rocket, Award, Pin, LogOut, Save, Pencil, Eye, Check, PartyPopper } from 'lucide-react'
 
 const STEPS = [
-  { label: 'Personal Info', icon: '👤', mobileIcon: '🪪', component: PersonalInfo },
-  { label: 'Summary', icon: '📝', component: Summary },
-  { label: 'Experience', icon: '💼', component: Experience },
-  { label: 'Education', icon: '🎓', component: Education },
-  { label: 'Skills', icon: '⚡', component: Skills },
-  { label: 'Projects', icon: '🚀', component: Projects },
-  { label: 'Certifications', icon: '🏆', component: Certifications },
-  { label: 'Additional', icon: '📌', component: Extras },
+  { label: 'Personal Info', icon: User, mobileIcon: IdCard, component: PersonalInfo },
+  { label: 'Summary', icon: AlignLeft, component: Summary },
+  { label: 'Experience', icon: Briefcase, component: Experience },
+  { label: 'Education', icon: GraduationCap, component: Education },
+  { label: 'Skills', icon: Zap, component: Skills },
+  { label: 'Projects', icon: Rocket, component: Projects },
+  { label: 'Certifications', icon: Award, component: Certifications },
+  { label: 'Additional', icon: Pin, component: Extras },
 ]
 
 function UserMenu() {
@@ -79,7 +80,7 @@ function UserMenu() {
                 className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#EF4444]
                   hover:bg-red-50 rounded-xl transition-colors cursor-pointer"
               >
-                🚪 Logout
+                <LogOut size={14} className="inline mr-1" />Logout
               </button>
             </div>
           </div>
@@ -210,7 +211,7 @@ const handleNext = async () => {
         {/* Right — Actions + User */}
         <div className="flex items-center gap-3">
           {isSaving && (
-            <span className="text-xs text-[#94A3B8]">💾 Saving...</span>
+            <span className="text-xs text-[#94A3B8]"><Save size={12} className="inline mr-1" />Saving...</span>
           )}
           <UserMenu />
         </div>
@@ -240,7 +241,7 @@ const handleNext = async () => {
             </p>
             <div className="flex items-center gap-2">
               {isSaving && (
-                <span className="text-xs text-[#94A3B8]">💾 Saving...</span>
+                <span className="text-xs text-[#94A3B8]"><Save size={12} className="inline mr-1" />Saving...</span>
               )}
               {/* Mobile Preview Toggle */}
               <button
@@ -248,7 +249,7 @@ const handleNext = async () => {
                 className="lg:hidden text-xs bg-[#EFF6FF] text-[#2563EB] px-3 py-1.5
                   rounded-lg font-medium cursor-pointer"
               >
-                {previewOpen ? '✏️ Edit' : '👁️ Preview'}
+                {previewOpen ? <><Pencil size={14} className="inline mr-1" />Edit</> : <><Eye size={14} className="inline mr-1" />Preview</>}
               </button>
             </div>
           </div>
@@ -283,11 +284,21 @@ const handleNext = async () => {
                 }`}
             >
               <span>
-                <span className="sm:hidden">{step.mobileIcon || step.icon}</span>
-                <span className="hidden sm:inline">{step.icon}</span>
+                  <span className="sm:hidden">
+                    {(() => {
+                      const MobileIcon = step.mobileIcon || step.icon
+                      return <MobileIcon size={14} />
+                    })()}
+                  </span>
+                  <span className="hidden sm:inline">
+                    {(() => {
+                      const StepIcon = step.icon
+                      return <StepIcon size={14} />
+                    })()}
+                  </span>
               </span>
               <span>{step.label}</span>
-              {index < currentStep && <span>✓</span>}
+                {index < currentStep && <Check size={12} />}
             </button>
           ))}
         </div>
@@ -310,7 +321,7 @@ const handleNext = async () => {
                   ← Back
                 </Button>
                 <Button onClick={handleNext}>
-                  {currentStep === STEPS.length - 1 ? '🎉 Finish & Save' : 'Next →'}
+                  {currentStep === STEPS.length - 1 ? <><PartyPopper size={14} className="inline mr-1" />Finish & Save</> : 'Next →'}
                 </Button>
               </div>
             </div>

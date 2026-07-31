@@ -4,6 +4,7 @@ import AppLayout from '../components/layout/AppLayout'
 import Button from '../components/ui/Button'
 import api from '../services/api'
 import toast from 'react-hot-toast'
+import { PartyPopper, AlertTriangle, XCircle, Check, X, Lightbulb, Search, Target, CheckCircle2, Pencil } from 'lucide-react'
 
 function ScoreRing({ score }) {
   const radius = 52
@@ -33,10 +34,10 @@ function ScoreRing({ score }) {
       </div>
       <p className="text-sm text-[#475569] text-center">
         {score >= 70
-          ? '🎉 Your resume is a strong match for this job!'
+          ? <><PartyPopper size={14} className="inline mr-1 text-[#22C55E]" />Your resume is a strong match for this job!</>
           : score >= 40
-            ? '⚠️ Some improvements needed to pass ATS filters.'
-            : '❌ Resume needs significant work for this role.'}
+            ? <><AlertTriangle size={14} className="inline mr-1 text-[#F59E0B]" />Some improvements needed to pass ATS filters.</>
+            : <><XCircle size={14} className="inline mr-1 text-[#EF4444]" />Resume needs significant work for this role.</>}
       </p>
     </div>
   )
@@ -49,7 +50,7 @@ function KeywordBadge({ word, matched }) {
         ? 'bg-green-50 text-[#10B981] border border-green-100'
         : 'bg-red-50 text-[#EF4444] border border-red-100'
       }`}>
-      {matched ? '✓' : '✗'} {word}
+      {matched ? <Check size={12} /> : <X size={12} />} {word}
     </span>
   )
 }
@@ -154,7 +155,7 @@ export default function ATSAnalyzer() {
 
         {/* Info Banner */}
         <div className="bg-[#EFF6FF] border border-blue-100 rounded-[12px] p-4 flex gap-3">
-          <span className="text-xl shrink-0">💡</span>
+          <Lightbulb size={20} className="shrink-0" />
           <div>
             <p className="text-sm font-semibold text-[#2563EB]">How ATS works</p>
             <p className="text-xs text-[#475569] mt-0.5">
@@ -220,7 +221,7 @@ export default function ATSAnalyzer() {
                         )}
                       </div>
                       {selectedResumeId === resume._id && (
-                        <span className="text-[#2563EB] text-xs font-bold shrink-0">✓</span>
+                        <Check size={14} className="text-[#2563EB] shrink-0" />
                       )}
                     </label>
                   ))}
@@ -250,7 +251,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
               />
               {jobDescription.length > 0 && jobDescription.length < 50 && (
                 <p className="text-xs text-[#F59E0B]">
-                  ⚠️ Job description is too short. Paste the full description for accurate results.
+                  <AlertTriangle size={14} className="inline mr-1" />Job description is too short. Paste the full description for accurate results.
                 </p>
               )}
             </div>
@@ -262,7 +263,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
               onClick={handleAnalyze}
               disabled={loading || !selectedResumeId || jobDescription.trim().length < 50}
             >
-              {loading ? '🔍 Analyzing...' : '🎯 Analyze ATS Score'}
+              {loading ? <><Search size={14} className="inline mr-1" />Analyzing...</> : <><Target size={14} className="inline mr-1" />Analyze ATS Score</>}
             </Button>
 
           </div>
@@ -272,7 +273,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
 
             {!result && !loading && (
               <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-8 text-center space-y-3 h-full flex flex-col items-center justify-center">
-                <span className="text-5xl">🎯</span>
+                <Target size={48} className="text-[#2563EB]" />
                 <h3 className="text-lg font-semibold text-[#0F172A]">
                   Ready to Analyze
                 </h3>
@@ -322,7 +323,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
                 {result.matchedKeywords?.length > 0 && (
                   <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-5 space-y-3">
                     <h3 className="text-sm font-semibold text-[#0F172A]">
-                      ✅ Matched Keywords
+                      <CheckCircle2 size={14} className="inline mr-1 text-[#22C55E]" />Matched Keywords
                       <span className="ml-2 text-xs font-normal text-[#94A3B8]">
                         ({result.matchedKeywords.length})
                       </span>
@@ -339,7 +340,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
                 {result.missingKeywords?.length > 0 && (
                   <div className="bg-white rounded-[12px] border border-[#E2E8F0] p-5 space-y-3">
                     <h3 className="text-sm font-semibold text-[#0F172A]">
-                      ❌ Missing Keywords
+                      <XCircle size={14} className="inline mr-1 text-[#EF4444]" />Missing Keywords
                       <span className="ml-2 text-xs font-normal text-[#94A3B8]">
                         ({result.missingKeywords.length})
                       </span>
@@ -361,7 +362,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
                         if (resume) navigate(`/builder/${resume._id}`)
                       }}
                     >
-                      ✏️ Edit Resume to Add Missing Keywords
+                      <Pencil size={14} className="inline mr-1" />Edit Resume to Add Missing Keywords
                     </Button>
                   </div>
                 )}
@@ -369,7 +370,7 @@ We are looking for a Senior React Developer with 3+ years of experience in JavaS
                 {/* Tips */}
                 <div className="bg-blue-50 border border-blue-100 rounded-[12px] p-4 space-y-2">
                   <p className="text-xs font-semibold text-[#2563EB]">
-                    💡 Tips to improve your score
+                    <Lightbulb size={14} className="inline mr-1" />Tips to improve your score
                   </p>
                   <ul className="text-xs text-[#475569] space-y-1">
                     <li>• Add missing keywords naturally to your experience or skills</li>

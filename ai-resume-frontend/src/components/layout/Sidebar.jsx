@@ -2,13 +2,27 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import toast from 'react-hot-toast'
 import Logo from '../ui/Logo'
+import { LayoutDashboard, Target, Sparkles, Palette, Gem, LogOut } from 'lucide-react'
+
+const renderNavIcon = (icon) => {
+  if (typeof icon === 'string') {
+    return <span className="text-base leading-none">{icon}</span>
+  }
+
+  if (icon) {
+    const IconComponent = icon
+    return <IconComponent size={18} className="shrink-0" />
+  }
+
+  return null
+}
 
 const navItems = [
-  { path: '/dashboard', icon: '🏠', label: 'Dashboard' },
-  { path: '/ats-analyzer', icon: '🎯', label: 'ATS Analyzer' },
-  { path: '/ai-suggestions', icon: '✨', label: 'AI Suggestions' },
-  { path: '/templates', icon: '🎨', label: 'Templates' },
-  { path: '/pricing', icon: '💎', label: 'Pricing' },
+  { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/ats-analyzer', icon: Target, label: 'ATS Analyzer' },
+  { path: '/ai-suggestions', icon: Sparkles, label: 'AI Suggestions' },
+  { path: '/templates', icon: Palette, label: 'Templates' },
+  { path: '/pricing', icon: Gem, label: 'Pricing' },
 ]
 
 export default function Sidebar() {
@@ -54,7 +68,7 @@ export default function Sidebar() {
               }`
             }
           >
-            <span className="text-base">{item.icon}</span>
+            {renderNavIcon(item.icon)}
             {item.label}
           </NavLink>
         ))}
@@ -88,7 +102,7 @@ export default function Sidebar() {
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
             text-white/60 hover:bg-white/10 hover:text-white transition-all duration-200 cursor-pointer"
         >
-          <span className="text-base">🚪</span>
+          <LogOut size={18} className="shrink-0" />
           Logout
         </button>
       </div>

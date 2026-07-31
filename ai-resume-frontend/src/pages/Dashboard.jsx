@@ -8,6 +8,7 @@ import useResumeStore from '../store/resumeStore'
 import useSubscriptionStore from '../store/subscriptionStore'
 import api from '../services/api'
 import toast from 'react-hot-toast'
+import { Gem, Zap, FileText } from 'lucide-react'
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -109,7 +110,7 @@ const handleDelete = async () => {
             className="bg-white text-[#2563EB] text-sm font-semibold px-5 py-2.5
             rounded-xl hover:bg-blue-50 transition-colors cursor-pointer whitespace-nowrap self-start sm:self-auto"
           >
-            {isPro ? '💎 Manage Plan' : '⚡ Upgrade to Pro'}
+            {isPro ? <><Gem size={14} className="inline mr-1" />Manage Plan</> : <><Zap size={14} className="inline mr-1" />Upgrade to Pro</>}
           </button>
         </div>
 
@@ -128,7 +129,7 @@ const handleDelete = async () => {
         ) : allResumes.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-              <span className="text-4xl">📄</span>
+              <FileText size={40} className="text-[#94A3B8]" />
             </div>
             <h3 className="text-lg font-semibold text-[#0F172A]">No resumes yet</h3>
             <p className="text-sm text-[#475569] mt-1 mb-6">

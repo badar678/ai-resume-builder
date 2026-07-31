@@ -7,6 +7,7 @@ import useResumeStore from '../store/resumeStore'
 import useSubscriptionStore from '../store/subscriptionStore'
 import { getTemplate } from '../components/templates'
 import { sampleData } from '../components/templates/sampleData'
+import { Eye, Check, Lock, Gem } from 'lucide-react'
 
 const TEMPLATES = [
   {
@@ -52,14 +53,16 @@ function TemplateCard({ template, onPreview, isSelected, locked, onLockedClick }
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-[#2563EB]/80 opacity-0 group-hover:opacity-100
           transition-opacity duration-200 flex items-center justify-center">
-          <span className="text-white text-sm font-semibold">👁️ Preview</span>
+          <span className="text-white text-sm font-semibold flex items-center">
+            <Eye size={14} className="inline mr-1" />Preview
+          </span>
         </div>
 
         {/* Selected Badge */}
         {isSelected && (
           <div className="absolute top-2 right-2 bg-[#2563EB] text-white text-xs
             font-bold px-2 py-0.5 rounded-full z-10">
-            ✓ Selected
+            <Check size={14} className="inline mr-1" />Selected
           </div>
         )}
 
@@ -67,7 +70,7 @@ function TemplateCard({ template, onPreview, isSelected, locked, onLockedClick }
         {locked && (
           <div className="absolute top-2 right-2 bg-[#0F172A]/85 text-white text-xs
             font-bold px-2 py-0.5 rounded-full z-10 flex items-center gap-1">
-            🔒 Pro
+            <Lock size={12} className="inline mr-1" />Pro
           </div>
         )}
       </div>
@@ -90,7 +93,7 @@ function TemplateCard({ template, onPreview, isSelected, locked, onLockedClick }
               variant="primary"
               onClick={() => onLockedClick(template)}
             >
-              🔒 Upgrade to Use
+              <Lock size={12} className="inline mr-1" />Upgrade to Use
             </Button>
           ) : (
             <Button
@@ -99,7 +102,7 @@ function TemplateCard({ template, onPreview, isSelected, locked, onLockedClick }
               variant={isSelected ? 'secondary' : 'primary'}
               onClick={() => onPreview(template)}
             >
-              {isSelected ? '✓ Selected' : 'Use This'}
+              {isSelected ? <><Check size={14} className="inline mr-1" />Selected</> : 'Use This'}
             </Button>
           )}
         </div>
@@ -173,7 +176,7 @@ const resumeData = useResumeStore((s) => s.resumeData)
             const currentLocked = currentTemplate?.plan === 'pro' && !isPro
             return (
               <Button onClick={() => currentLocked ? handleLockedClick(currentTemplate) : handleUseTemplate(currentTemplate)}>
-                {currentLocked ? `🔒 Upgrade to keep ${currentTemplate?.name}` : `Continue with ${currentTemplate?.name} →`}
+                {currentLocked ? <><Lock size={12} className="inline mr-1" />Upgrade to keep {currentTemplate?.name}</> : `Continue with ${currentTemplate?.name} →`}
               </Button>
             )
           })()}
@@ -225,7 +228,7 @@ const resumeData = useResumeStore((s) => s.resumeData)
             <div className="flex items-center gap-2">
               <h3 className="text-lg font-bold text-[#0F172A]">Pro</h3>
               <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[#FFF7ED] text-[#F97316]">
-                💎 {proTemplates.length} templates
+                <Gem size={14} className="inline mr-1" />{proTemplates.length} templates
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -280,7 +283,7 @@ const resumeData = useResumeStore((s) => s.resumeData)
               <Button
                 variant="outline"
                 className="flex-1"
-                onClick={() => { setPreviewTemplate(null); setPreviewWithMyData(false) }}
+                onClick={() => setPreviewTemplate(null)}
               >
                 Cancel
               </Button>
@@ -289,7 +292,7 @@ const resumeData = useResumeStore((s) => s.resumeData)
                   className="flex-1"
                   onClick={() => handleLockedClick(previewTemplate)}
                 >
-                  🔒 Upgrade to Use
+                  <Lock size={12} className="inline mr-1" />Upgrade to Use
                 </Button>
               ) : (
                 <Button

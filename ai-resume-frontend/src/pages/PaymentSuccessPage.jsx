@@ -4,6 +4,7 @@ import AppLayout from '../components/layout/AppLayout'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import useSubscriptionStore from '../store/subscriptionStore'
+import { PartyPopper, AlertTriangle } from 'lucide-react'
 
 export default function PaymentSuccessPage() {
   const navigate = useNavigate()
@@ -54,7 +55,7 @@ export default function PaymentSuccessPage() {
           ) : isPro ? (
             <>
               <div className="w-16 h-16 bg-[#22C55E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🎉</span>
+                <PartyPopper size={32} className="text-[#22C55E]" />
               </div>
               <h2 className="text-xl font-bold text-[#0F172A]">You're on Pro now!</h2>
               <p className="text-sm text-[#475569] mt-2">
@@ -67,7 +68,7 @@ export default function PaymentSuccessPage() {
           ) : (
             <>
               <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">⚠️</span>
+                <AlertTriangle size={32} className="text-[#EF4444]" />
               </div>
               <h2 className="text-xl font-bold text-[#0F172A]">Still processing</h2>
               <p className="text-sm text-[#475569] mt-2">

@@ -1,11 +1,25 @@
 import { NavLink } from 'react-router-dom'
+import { LayoutDashboard, Target, Sparkles, Palette } from 'lucide-react'
 
 const navItems = [
-  { path: '/dashboard', icon: '🏠', label: 'Home' },
-  { path: '/ats-analyzer', icon: '🎯', label: 'ATS' },
-  { path: '/ai-suggestions', icon: '✨', label: 'AI Suggestion' },
-  { path: '/templates', icon: '🎨', label: 'Templates' },
+  { path: '/dashboard', icon: LayoutDashboard, label: 'Home' },
+  { path: '/ats-analyzer', icon: Target, label: 'ATS' },
+  { path: '/ai-suggestions', icon: Sparkles, label: 'AI Suggestion' },
+  { path: '/templates', icon: Palette, label: 'Templates' },
 ]
+
+const renderNavIcon = (icon) => {
+  if (typeof icon === 'string') {
+    return <span className="text-lg leading-none">{icon}</span>
+  }
+
+  if (icon) {
+    const IconComponent = icon
+    return <IconComponent size={18} className="shrink-0" />
+  }
+
+  return null
+}
 
 export default function BottomNav() {
   return (
@@ -21,7 +35,7 @@ export default function BottomNav() {
               ${isActive ? 'text-[#2563EB]' : 'text-[#94A3B8]'}`
             }
           >
-            <span className="text-lg leading-none">{item.icon}</span>
+            {renderNavIcon(item.icon)}
             <span className="truncate text-center leading-none">{item.label}</span>
           </NavLink>
         ))}
