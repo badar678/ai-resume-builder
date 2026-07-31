@@ -65,7 +65,7 @@ export default function ModernTemplate({ data }) {
               <div key={i} className="flex justify-between items-start">
                 <div>
                   <p className="font-bold text-[11px]">{edu.school}</p>
-                  <p className="text-[11px] mt-0.5">{edu.degree}</p>
+                  <p className="text-[#2563EB] font-semibold text-[11px] mt-0.5">{edu.degree}</p>
                   {edu.field && <p className="text-[#475569] text-[11px] mt-0.5">{edu.field}</p>}
                   {edu.gpa && <p className="text-[#475569] text-[11px] mt-0.5">GPA: {edu.gpa}</p>}
                 </div>
@@ -100,7 +100,7 @@ export default function ModernTemplate({ data }) {
             {projects.map((p, i) => (
               <div key={i} className="mb-1.5">
                 <p className="font-bold text-[11px]">{p.name}</p>
-                {p.tech && <p className="text-[#2563EB] text-[11px]">{p.tech}</p>}
+                {p.tech && <p className="text-[#2563EB] font-semibold text-[11px]">{p.tech}</p>}
                 {p.description && <p className="text-[#475569] text-[11px]">{p.description}</p>}
               </div>
             ))}
@@ -117,9 +117,9 @@ export default function ModernTemplate({ data }) {
               <div key={i} className="flex justify-between">
                 <div>
                   <p className="font-bold text-[11px]">{c.name}</p>
-                  <p className="text-[#475569] text-[11px]">{c.issuer}</p>
+                  <p className="text-[#2563EB]  font-semibold text-[11px]">{c.issuer}</p>
                   {c.link && (
-                    <a href={c.link} className="text-[#2563EB] text-[11px] break-all">{c.link}</a>
+                    <a href={c.link} className="text-[#475569] text-[11px] break-all">{c.link}</a>
                   )}
                 </div>
                 {c.date && <p className="text-[#94A3B8] text-[11px]">{c.date}</p>}

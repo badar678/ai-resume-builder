@@ -94,9 +94,9 @@ export default function ExecutiveTemplate({ data }) {
                   <span className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-[#16A34A]" />
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <p className="text-[#16A34A] text-[11px] font-semibold">{edu.school}</p>
-                      <p className="font-bold text-[#0F172A] text-[11px] mt-0.5">{edu.degree}</p>
-                      {edu.field && <p className="text-[#475569] text-[11px] mt-0.5">{edu.field}</p>}
+                      <p className="font-bold text-[#0F172A]  text-[11px]">{edu.school}</p>
+                      <p className="text-[#16A34A] font-semibold text-[11px] mt-0.5">{edu.degree}</p>
+                      {edu.field && <p className="text-[#94A3B8] text-[11px] mt-0.5">{edu.field}</p>}
                       {edu.gpa && <p className="text-[#475569] text-[11px]">GPA: {edu.gpa}</p>}
                     </div>
                     <p className="text-[#94A3B8] text-[11px] whitespace-nowrap font-medium">
@@ -145,8 +145,8 @@ export default function ExecutiveTemplate({ data }) {
                 <div key={i} className="flex justify-between items-start gap-2">
                   <div>
                     <p className="font-bold text-[#0F172A] text-[11px]">{c.name}</p>
-                    <p className="text-[#475569] text-[11px]">{c.issuer}</p>
-                    {c.link && <a href={c.link} className="text-[#16A34A] text-[11px] break-all">{c.link}</a>}
+                    <p className="text-[#16A34A] font-semibold text-[11px]">{c.issuer}</p>
+                    {c.link && <a href={c.link} className="text-[#475569] text-[11px] break-all">{c.link}</a>}
                   </div>
                   {c.date && <p className="text-[#94A3B8] text-[11px] whitespace-nowrap">{c.date}</p>}
                 </div>
