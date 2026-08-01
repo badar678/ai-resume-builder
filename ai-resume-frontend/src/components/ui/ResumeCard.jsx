@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from './Card'
-import { Pencil, Copy, Trash2 } from 'lucide-react'
+import useResumeStore from '../../store/resumeStore'
+import api from '../../services/api'
+import toast from 'react-hot-toast'
+import { Pencil, Copy, Trash2, Check, X } from 'lucide-react'
 
 export default function ResumeCard({ resume, onDelete, onDuplicate }) {
   const navigate = useNavigate()
+  const { saveResumeToList } = useResumeStore()
+  const [isEditingTitle, setIsEditingTitle] = useState(false)
+  const [draftTitle, setDraftTitle] = useState(resume.title || 'Untitled Resume')
+
+  useEffect(() => {
+    setDraftTitle(resume.title || 'Untitled Resume')
+  }, [resume.title])
 
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
@@ -11,6 +22,29 @@ export default function ResumeCard({ resume, onDelete, onDuplicate }) {
       day: 'numeric',
       year: 'numeric',
     })
+  }
+
+  const handleSaveTitle = async () => {
+    const nextTitle = draftTitle.trim() || 'Untitled Resume'
+
+    if (nextTitle === (resume.title || 'Untitled Resume')) {
+      setIsEditingTitle(false)
+      setDraftTitle(nextTitle)
+      return
+    }
+
+    try {
+      const res = await api.put(`/resume/${resume._id}`, {
+        ...resume,
+        title: nextTitle,
+      })
+      saveResumeToList(res.data)
+      toast.success('Resume title updated.')
+      setIsEditingTitle(false)
+    } catch (err) {
+      toast.error(err.response?.data?.msg || 'Could not update resume title.')
+      setDraftTitle(resume.title || 'Untitled Resume')
+    }
   }
 
   return (
@@ -46,9 +80,64 @@ export default function ResumeCard({ resume, onDelete, onDuplicate }) {
 
       {/* Card Info */}
       <div className="p-4">
-        <h3 className="font-semibold text-[#0F172A] text-sm truncate">
-          {resume.title || 'Untitled Resume'}
-        </h3>
+        <div className="flex items-center gap-2">
+          {isEditingTitle ? (
+            <input
+              autoFocus
+              value={draftTitle}
+              onChange={(e) => setDraftTitle(e.target.value)}
+              onBlur={handleSaveTitle}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSaveTitle()
+                if (e.key === 'Escape') {
+                  setDraftTitle(resume.title || 'Untitled Resume')
+                  setIsEditingTitle(false)
+                }
+              }}
+              className="w-full min-w-0 font-semibold text-[#0F172A] text-sm bg-transparent border border-[#CBD5E1] rounded-lg px-2 py-1 outline-none focus:border-[#2563EB]"
+            />
+          ) : (
+            <h3 className="flex-1 font-semibold text-[#0F172A] text-sm truncate">
+              {resume.title || 'Untitled Resume'}
+            </h3>
+          )}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setIsEditingTitle(true)
+            }}
+            className="shrink-0 text-[#94A3B8] hover:text-[#2563EB] transition-colors cursor-pointer"
+            aria-label="Edit resume title"
+            title="Edit title"
+          >
+            <Pencil size={13} />
+          </button>
+          {isEditingTitle && (
+            <div className="flex items-center gap-1 shrink-0">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleSaveTitle()
+                }}
+                className="text-[#10B981] hover:text-emerald-600 transition-colors cursor-pointer"
+                aria-label="Save title"
+              >
+                <Check size={13} />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setDraftTitle(resume.title || 'Untitled Resume')
+                  setIsEditingTitle(false)
+                }}
+                className="text-[#94A3B8] hover:text-[#EF4444] transition-colors cursor-pointer"
+                aria-label="Cancel title edit"
+              >
+                <X size={13} />
+              </button>
+            </div>
+          )}
+        </div>
         <p className="text-xs text-[#94A3B8] mt-0.5">
           Updated {formatDate(resume.updatedAt || resume.createdAt)}
         </p>

@@ -108,6 +108,7 @@ export default function ResumeBuilder() {
 
   const [previewOpen, setPreviewOpen] = useState(false)
   const StepComponent = STEPS[currentStep].component
+  const isMobilePreview = () => window.matchMedia('(max-width: 1023px)').matches
 
   // Required before leaving Step 1 (Personal Info) — mirrors the
   // validation rules in PersonalInfo.jsx. Reads straight from the store,
@@ -134,6 +135,15 @@ export default function ResumeBuilder() {
       loadResumeById(resumeId)
     }
   }, [resumeId])
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPreviewOpen(false)
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   // Auto save to backend + local cache
   useEffect(() => {
@@ -192,6 +202,23 @@ const handleNext = async () => {
     if (currentStep > 0) setCurrentStep(currentStep - 1)
   }
 
+  const handleMobilePreviewToggle = () => {
+    if (!previewOpen) {
+      setPreviewOpen(true)
+      if (isMobilePreview()) {
+        window.history.pushState({ mobilePreviewOpen: true }, '')
+      }
+      return
+    }
+
+    if (isMobilePreview() && window.history.state?.mobilePreviewOpen) {
+      window.history.back()
+      return
+    }
+
+    setPreviewOpen(false)
+  }
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-['Inter']">
 
@@ -245,7 +272,7 @@ const handleNext = async () => {
               )}
               {/* Mobile Preview Toggle */}
               <button
-                onClick={() => setPreviewOpen(!previewOpen)}
+                onClick={handleMobilePreviewToggle}
                 className="lg:hidden text-xs bg-[#EFF6FF] text-[#2563EB] px-3 py-1.5
                   rounded-lg font-medium cursor-pointer"
               >
