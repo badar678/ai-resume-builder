@@ -65,7 +65,7 @@ export default function UpgradeModal({ isOpen, onClose, onSuccess }) {
           {[
             'Unlimited resumes',
             'AI-powered suggestions',
-            'Advanced ATS scoring',
+            'Unlimited ATS checks',
             'Premium templates',
             'Unlimited PDF downloads',
           ].map((feature) => (

@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import toast from 'react-hot-toast'
 import Logo from '../ui/Logo'
-import { LayoutDashboard, Target, Sparkles, Palette, Gem, LogOut } from 'lucide-react'
+import { LayoutDashboard, Target, Sparkles, Palette, Gem, LogOut, ShieldCheck } from 'lucide-react'
 
 const renderNavIcon = (icon) => {
   if (typeof icon === 'string') {
@@ -88,7 +88,7 @@ export default function Sidebar() {
                 }`
               }
             >
-              <span className="text-base">🛡️</span>
+              <ShieldCheck size={18} className="shrink-0" />
               Admin Panel
             </NavLink>
           </>
