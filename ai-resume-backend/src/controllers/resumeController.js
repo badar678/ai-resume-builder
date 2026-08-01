@@ -68,7 +68,7 @@ exports.updateResume = async (req, res) => {
     const resume = await Resume.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.id },
       req.body,
-      { new: true }
+      { returnDocument: "after" }
     );
     if (!resume) return res.status(404).json({ msg: "Resume not found" });
 
