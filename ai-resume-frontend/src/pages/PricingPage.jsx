@@ -13,7 +13,7 @@ const plans = [
     id: 'free',
     name: 'Free',
     price: 0,
-    features: ['1 resume', 'Basic template', 'Limited ATS check', 'No AI suggestions'],
+    features: ['1 resume', 'Basic template', '3 ATS checks / month', 'No AI suggestions'],
   },
   {
     id: 'pro',
@@ -22,7 +22,7 @@ const plans = [
     features: [
       'Unlimited resumes',
       'AI-powered suggestions',
-      'Advanced ATS scoring',
+      'Unlimited ATS checks',
       'Premium templates',
       'Unlimited PDF downloads',
     ],

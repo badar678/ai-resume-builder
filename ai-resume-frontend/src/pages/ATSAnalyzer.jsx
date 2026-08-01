@@ -125,7 +125,11 @@ export default function ATSAnalyzer() {
       setHistory((prev) => [res.data, ...prev].slice(0, 5))
       toast.success('Analysis complete!', { id: toastId })
     } catch (err) {
-      toast.error(err.response?.data?.msg || 'Analysis failed. Try again.', { id: toastId })
+       const data = err.response?.data
+      toast.error(data?.msg || 'Analysis failed. Try again.', { id: toastId })
+      if (data?.upgradeRequired) {
+        navigate('/pricing')
+      }
     } finally {
       setLoading(false)
     }

@@ -10,6 +10,6 @@ const jobAnalysisSchema = new mongoose.Schema({
   missingKeywords: [String],
 
   score: Number
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("JobAnalysis", jobAnalysisSchema);

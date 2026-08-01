@@ -23,7 +23,7 @@ const TEMPLATES = [
     name: 'Executive',
     tag: 'Premium',
     tagColor: 'bg-[#FFF7ED] text-[#F97316]',
-    description: 'Sophisticated layout for senior and executive roles',
+    description: 'Modern layout with a premium look',
     plan: 'pro',
   },
 ]
