@@ -12,6 +12,7 @@ export default function Login() {
   const login = useAuthStore((state) => state.login)
   const [serverError, setServerError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [slowLoading, setSlowLoading] = useState(false)
 
   const {
     register,
@@ -21,7 +22,13 @@ export default function Login() {
 
  const onSubmit = async (data) => {
   setLoading(true)
+  setSlowLoading(false)
   setServerError('')
+
+  // If the request is still going after 4s, our free-tier backend is likely
+  // waking up from sleep — let the user know instead of leaving them guessing.
+  const slowTimer = setTimeout(() => setSlowLoading(true), 4000)
+
   try {
     const res = await api.post('/login', data)
     login(res.data.user, res.data.token)
@@ -30,7 +37,9 @@ export default function Login() {
   } catch (err) {
     setServerError(err.response?.data?.msg || 'Login failed. Try again.')
   } finally {
+    clearTimeout(slowTimer)
     setLoading(false)
+    setSlowLoading(false)
   }
 }
 
@@ -38,6 +47,7 @@ export default function Login() {
     <AuthLayout
       title="Welcome back"
       subtitle="Sign in to your ResumeAI account"
+      note="⏳ The first request may take up to a minute because the server is running on Render's free tier."
     >
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
@@ -112,7 +122,11 @@ export default function Login() {
           className="w-full"
           disabled={loading}
         >
-          {loading ? 'Signing in...' : 'Sign In'}
+          {slowLoading
+            ? 'Waking up the server, hang tight...'
+            : loading
+            ? 'Signing in...'
+            : 'Sign In'}
         </Button>
 
         {/* Divider */}

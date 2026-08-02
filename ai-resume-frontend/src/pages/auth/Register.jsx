@@ -11,6 +11,7 @@ export default function Register() {
   const navigate = useNavigate()
   const [serverError, setServerError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [slowLoading, setSlowLoading] = useState(false)
 
   const {
     register,
@@ -23,7 +24,13 @@ export default function Register() {
 
   const onSubmit = async (data) => {
   setLoading(true)
+  setSlowLoading(false)
   setServerError('')
+
+  // If the request is still going after 4s, our free-tier backend is likely
+  // waking up from sleep — let the user know instead of leaving them guessing.
+  const slowTimer = setTimeout(() => setSlowLoading(true), 4000)
+
   try {
     await api.post('/register', {
       name: data.name,
@@ -35,7 +42,9 @@ export default function Register() {
   } catch (err) {
     setServerError(err.response?.data?.msg || 'Registration failed. Try again.')
   } finally {
+    clearTimeout(slowTimer)
     setLoading(false)
+    setSlowLoading(false)
   }
 }
 
@@ -43,6 +52,7 @@ export default function Register() {
     <AuthLayout
       title="Create your account"
       subtitle="Start building your perfect resume today"
+      note="⏳ The first request may take up to a minute because the server is running on Render's free tier."
     >
       <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
@@ -154,7 +164,11 @@ export default function Register() {
           className="w-full"
           disabled={loading}
         >
-          {loading ? 'Creating account...' : 'Create Account'}
+          {slowLoading
+            ? 'Waking up the server, hang tight...'
+            : loading
+            ? 'Creating account...'
+            : 'Create Account'}
         </Button>
 
         {/* Divider */}

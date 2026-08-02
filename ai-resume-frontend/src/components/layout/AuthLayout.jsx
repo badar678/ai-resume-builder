@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Logo from '../ui/Logo'
 
-export default function AuthLayout({ children, title, subtitle }) {
+export default function AuthLayout({ children, title, subtitle, note }) {
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-['Inter']">
 
@@ -38,6 +38,11 @@ export default function AuthLayout({ children, title, subtitle }) {
               <h1 className="text-2xl font-bold text-[#0F172A]">{title}</h1>
               {subtitle && (
                 <p className="text-[#475569] mt-2 text-sm">{subtitle}</p>
+              )}
+              {note && (
+                <p className="mt-3 text-xs text-[#B45309] bg-[#FFFBEB] border border-[#FDE68A] rounded-lg px-3 py-2 inline-block">
+                  {note}
+                </p>
               )}
             </div>
 
