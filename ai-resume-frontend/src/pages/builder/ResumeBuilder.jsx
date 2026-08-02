@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useResumeStore from '../../store/resumeStore'
 import useAuthStore from '../../store/authStore'
@@ -109,6 +109,20 @@ export default function ResumeBuilder() {
   const [previewOpen, setPreviewOpen] = useState(false)
   const StepComponent = STEPS[currentStep].component
   const isMobilePreview = () => window.matchMedia('(max-width: 1023px)').matches
+  const stepPillRefs = useRef([])
+
+  // Keep the active step pill visible on mobile. The pill row scrolls
+  // horizontally and overflows off-screen once you're a few steps in —
+  // without this, users lose track of which step they're on after
+  // tapping Next repeatedly. `block: 'nearest'` stops it from also
+  // scrolling the whole page vertically.
+  useEffect(() => {
+    stepPillRefs.current[currentStep]?.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'nearest',
+    })
+  }, [currentStep])
 
   // Required before leaving Step 1 (Personal Info) — mirrors the
   // validation rules in PersonalInfo.jsx. Reads straight from the store,
@@ -294,6 +308,7 @@ const handleNext = async () => {
           {STEPS.map((step, index) => (
             <button
               key={index}
+              ref={(el) => (stepPillRefs.current[index] = el)}
               onClick={() => {
                 if (index > 0 && !isPersonalInfoValid()) {
                   toast.error('Please add your name and a valid email before continuing.')
