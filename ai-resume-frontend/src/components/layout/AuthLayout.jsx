@@ -52,7 +52,7 @@ export default function AuthLayout({ children, title, subtitle, note }) {
 
           {/* Footer */}
           <p className="text-center text-xs text-[#94A3B8] mt-6">
-            © 2026 ResumeAI by Badar ul Islam. All rights reserved.
+            © 2026 ResumeAI by Badar ul Islam
           </p>
         </div>
       </div>
